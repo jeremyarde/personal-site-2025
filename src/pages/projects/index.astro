@@ -1,0 +1,39 @@
+---
+import "../../styles/global.css";
+
+const projectDetails = [
+  {
+    project_title: "Habit Reminder",
+    site_url: "",
+    github_url: "https://github.com/jeremyarde/reminder",
+    date: "2021-01-01",
+  },
+  {
+    project_title: "Domino Counter",
+    site_url: "https://jeremyarde.github.io/domino-counter-frontend/",
+    github_url: "https://github.com/jeremyarde/domino-counter-frontend",
+    date: "2021-04-27",
+  },
+  {
+    project_title: "Advent of Code 2020 (Rust)",
+    site_url: "",
+    github_url: "https://github.com/jeremyarde/advent-of-code-2020",
+    date: "2020-12-31",
+  },
+];
+---
+
+<div class="flex flex-col justify-center align-middle container">
+  <h1 class="pt-16 pb-6 text-2xl title">Projects</h1>
+  <ul class="flex flex-col gap-4 pt-6 container">
+    {
+      projectDetails.map((project) => (
+        <li>
+          <a href={project.site_url}>{project.project_title}</a>
+          <a href={project.github_url}>{project.github_url}</a>
+          <p>{project.date}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>

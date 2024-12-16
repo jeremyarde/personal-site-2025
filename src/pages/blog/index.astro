@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 import "../../styles/global.css";
 import FormattedDate from "../../components/FormattedDate.astro";
 
-const posts = (await getCollection("posts")).sort(
+const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
@@ -19,7 +19,7 @@ const posts = (await getCollection("posts")).sort(
   </head>
   <body>
     <main class="container">
-      <section>
+      <section class="blog-entry-list">
         <ul>
           {
             posts.map((post) => (
@@ -38,6 +38,11 @@ const posts = (await getCollection("posts")).sort(
                 </a>
               </li>
             ))
+          }
+          {
+            posts.length === 0 ? (
+              <li class="empty">No posts found</li>
+            ) : null
           }
         </ul>
       </section>
