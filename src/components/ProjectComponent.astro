@@ -12,6 +12,8 @@ const { imagePath, project } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/*.{jpeg,jpg,png,gif}"
 );
+
+// console.log("image paths: ", images);
 if (imagePath && !images[imagePath])
   throw new Error(
     `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
