@@ -15,10 +15,10 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout>
-  <div>
-    <h1 class="heading2Xl">{post.data.title}</h1>
-    {post.data.description && <p>{post.data.description}</p>}
-    <Content />
-  </div>
-</Layout>
+<!-- <Layout> -->
+<div>
+  <h1 class="heading2Xl">{post.data.title}</h1>
+  {post.data.description && <p>{post.data.description}</p>}
+  <Content />
+</div>
+<!-- </Layout> -->
