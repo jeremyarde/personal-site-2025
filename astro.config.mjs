@@ -8,6 +8,6 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site: "https://jeremyarde.com",
-  base: "personal-site-2025",
+  base: "personal-site-2025/docs",
   integrations: [mdx(), sitemap(), tailwind()],
 });
