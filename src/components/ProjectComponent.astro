@@ -1,0 +1,57 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { Project } from "../pages/projects/index.astro";
+
+interface Props {
+  imagePath?: string;
+  project: Project;
+}
+
+const { imagePath, project } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif}"
+);
+if (imagePath && !images[imagePath])
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+  );
+---
+
+<li class="flex flex-row gap-8 items-start">
+  <div class="flex flex-col flex-1">
+    <h2 class="text-xl font-bold text-left">
+      {project.project_title}
+    </h2>
+    <p class="text-left text-wrap mt-2">{project.description}</p>
+    <h3 class="text-left font-semibold pt-4">Technology</h3>
+    <p class="text-left text-wrap pt-2 text-sm text-gray-600">
+      {project.technical_details}
+    </p>
+    <div class="flex flex-row gap-4 pt-4">
+      {
+        project.site_url && (
+          <a class=" hover:text-blue-800 underline" href={project.site_url}>
+            website
+          </a>
+        )
+      }
+      <a class="hover:text-blue-800 underline" href={project.github_url}>
+        github
+      </a>
+    </div>
+  </div>
+  <div class="flex-shrink-0">
+    {
+      project.imagePath ? (
+        <Image
+          class="w-[400px] rounded-lg shadow-md"
+          src={images[project.imagePath]()}
+          alt={project.project_title}
+        />
+      ) : (
+        <div class="w-[400px] h-[400px] bg-gray-200 rounded-lg" />
+      )
+    }
+  </div>
+</li>
