@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import bbgamepic from "../../screenshots/bbgame.png";
+import { Image } from "astro:assets";
 
 type Project = {
   project_title: string;
@@ -7,7 +9,7 @@ type Project = {
   github_url: string;
   date: string;
   description: string;
-  image?: string;
+  image?: ImageMetadata;
   technical_details: string;
 };
 
@@ -19,7 +21,7 @@ const projectDetails = [
     date: "2024-03 - 2024-12",
     description:
       "A card game similar to hearts. Players are dealt cards and bid on how many hands they can win.",
-    image: "src/screenshots/bbgame.png",
+    image: bbgamepic,
     technical_details:
       "Website built with Dioxus (Rust UI framework). Server built with in Rust (axum, tokio). Website connects to the server via websocket, server handles game logic, syncing between players and validates moves.",
   },
@@ -61,7 +63,7 @@ const projectDetails = [
             </div>
             <div class="flex-shrink-0">
               {project.image ? (
-                <img
+                <Image
                   class="w-[400px] rounded-lg shadow-md"
                   src={project.image}
                   alt={project.project_title}
