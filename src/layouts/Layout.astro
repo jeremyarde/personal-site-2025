@@ -1,0 +1,41 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="bg-gray-50">
+    <main class="min-h-screen">
+      <div class="max-w-6xl mx-auto px-4">
+        <header class="py-6 flex justify-between items-center">
+          <h2 class="text-2xl font-bold">
+            <a href="/" class="hover:text-gray-600 transition-colors"
+              >{SITE_TITLE}</a
+            >
+          </h2>
+          <nav class="flex gap-6">
+            <a class="hover:text-gray-600 transition-colors" href="/blog"
+              >blog</a
+            >
+            <a class="hover:text-gray-600 transition-colors" href="/projects"
+              >projects</a
+            >
+          </nav>
+        </header>
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>

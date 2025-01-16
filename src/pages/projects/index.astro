@@ -1,61 +1,78 @@
 ---
-import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
 
-function createProject(project_title, site_url, github_url, date) {
-  return {
-    project_title,
-    site_url,
-    github_url,
-    date,
-  };
-}
+type Project = {
+  project_title: string;
+  site_url: string;
+  github_url: string;
+  date: string;
+  description: string;
+  image?: string;
+  technical_details: string;
+};
 
 const projectDetails = [
-  createProject(
-    "Blackball (Card Game)",
-    "https://jeremyarde.github.io/blackballgame/",
-    "https://github.com/jeremyarde/blackballgame",
-    "2024-03 - 2024-12"
-  ),
   {
-    project_title: "Habit Reminder",
-    site_url: "",
-    github_url: "https://github.com/jeremyarde/reminder",
-    date: "2021-01-01",
-  },
-  {
-    project_title: "Domino Counter",
-    site_url: "https://jeremyarde.github.io/domino-counter-frontend/",
-    github_url: "https://github.com/jeremyarde/domino-counter-frontend",
-    date: "2021-04-27",
-  },
-  {
-    project_title: "Advent of Code 2020 (Rust)",
-    site_url: "",
-    github_url: "https://github.com/jeremyarde/advent-of-code-2020",
-    date: "2020-12-31",
+    project_title: "Blackball",
+    site_url: "https://jeremyarde.github.io/blackballgame/",
+    github_url: "https://github.com/jeremyarde/blackballgame",
+    date: "2024-03 - 2024-12",
+    description:
+      "A card game similar to hearts. Players are dealt cards and bid on how many hands they can win.",
+    image: "src/screenshots/bbgame.png",
+    technical_details:
+      "Website built with Dioxus (Rust UI framework). Server built with in Rust (axum, tokio). Website connects to the server via websocket, server handles game logic, syncing between players and validates moves.",
   },
 ];
 ---
 
-<div class="flex flex-col justify-center align-middle container">
-  <h1 class="pt-16 pb-6 text-2xl title">projects</h1>
-  <ul class="flex flex-col gap-4 pt-6 container">
-    {
-      projectDetails.map((project) => (
-        <li>
-          <div class="flex flex-col pb-4">
-            <label>{project.project_title}</label>
-            <a class="pl-4" href={project.site_url}>
-              website
-            </a>
-            <a class="pl-4" href={project.github_url}>
-              github
-            </a>
-          </div>
-          {/* <p>{project.date}</p> */}
-        </li>
-      ))
-    }
-  </ul>
-</div>
+<Layout>
+  <div class="flex flex-col items-center max-w-6xl mx-auto px-4">
+    <h1 class="pt-16 pb-6 text-2xl title">projects</h1>
+    <ul class="flex flex-col gap-8 w-full">
+      {
+        projectDetails.map((project: Project) => (
+          <li class="flex flex-row gap-8 items-start">
+            <div class="flex flex-col flex-1">
+              <h2 class="text-xl font-bold text-left">
+                {project.project_title}
+              </h2>
+              <p class="text-left text-wrap mt-2">{project.description}</p>
+              <h3 class="text-left font-semibold pt-4">Technology</h3>
+              <p class="text-left text-wrap pt-2 text-sm text-gray-600">
+                {project.technical_details}
+              </p>
+              <div class="flex flex-row gap-4 pt-4">
+                {project.site_url && (
+                  <a
+                    class=" hover:text-blue-800 underline"
+                    href={project.site_url}
+                  >
+                    website
+                  </a>
+                )}
+                <a
+                  class=" hover:text-blue-800 underline"
+                  href={project.github_url}
+                >
+                  github
+                </a>
+              </div>
+            </div>
+            <div class="flex-shrink-0">
+              {project.image ? (
+                <img
+                  class="w-[400px] rounded-lg shadow-md"
+                  src={project.image}
+                  alt={project.project_title}
+                />
+              ) : (
+                <div class="w-[400px] h-[400px] bg-gray-200 rounded-lg" />
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
