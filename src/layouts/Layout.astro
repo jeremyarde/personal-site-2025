@@ -9,6 +9,11 @@ interface Props {
 }
 
 const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+
+const navItems = [
+  // "blog",
+  "projects",
+];
 ---
 
 <!doctype html>
@@ -25,8 +30,14 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
             <a href="/" class="colorInherit">{SITE_TITLE}</a>
           </h2>
           <nav>
-            <a class="nav" href="/blog">blog</a>
-            <a class="nav" href="/projects">projects</a>
+            <!-- <a class="nav" href="/blog">blog</a> -->
+            {
+              navItems.map((page) => (
+                <a class="nav" href={`${Astro.url.pathname}${page}`}>
+                  {page}
+                </a>
+              ))
+            }
           </nav>
         </header>
         <slot />

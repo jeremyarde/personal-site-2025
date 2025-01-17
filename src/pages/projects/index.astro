@@ -24,12 +24,17 @@ const projectDetails: Project[] = [
     technical_details:
       "Website built with Dioxus (Rust UI framework). Server built with in Rust (axum, tokio). Website connects to the server via websocket, server handles game logic, syncing between players and validates moves.",
   },
+  {
+    project_title: "Screen Recorder",
+    site_url: "",
+    github_url: "",
+    date: "",
+    description:
+      "A screen recording app, for recording yourself and the desktop at the same time.",
+    imagePath: "/src/assets/screenrecord.gif",
+    technical_details: "Built with rust using egui, gstreamer and ffmpeg.",
+  },
 ];
-
-// const { imagePath } = Astro.props;
-// const images = import.meta.glob<{ default: ImageMetadata }>(
-//   "/src/assets/*.{jpeg,jpg,png,gif}"
-// );
 ---
 
 <Layout>
