@@ -38,9 +38,13 @@ if (imagePath && !images[imagePath])
           </a>
         )
       }
-      <a class="hover:text-blue-800 underline" href={project.github_url}>
-        github
-      </a>
+      {
+        project.github_url && (
+          <a class="hover:text-blue-800 underline" href={project.github_url}>
+            github
+          </a>
+        )
+      }
     </div>
   </div>
   <div class="flex-shrink-0">
