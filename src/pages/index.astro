@@ -100,7 +100,11 @@ import Layout from "../layouts/Layout.astro";
   document.addEventListener("DOMContentLoaded", async () => {
     try {
       // Initialize WebGPU shader
-      const wasmModule = await init("/personal-site-2025/shaders_bg.wasm");
+      let path = "/personal-site-2025/shaders_bg.wasm";
+      if (!import.meta.env.DEV) {
+        path = "/shaders_bg.wasm";
+      }
+      const wasmModule = await init(path);
       // @ts-ignore
       window.wasm = wasmModule; // Store for access in event handlers
       console.log("WASM initialized successfully!");
