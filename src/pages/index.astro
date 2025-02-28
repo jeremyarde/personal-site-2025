@@ -26,3 +26,67 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </div>
 </Layout>
+
+<style>
+  /* Shader container styles */
+  .shader-container {
+    border: 1px solid #000;
+    max-width: 44rem;
+    max-height: 720px;
+    position: absolute;
+    top: 0;
+    /* left: 50%; */
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Change from -1 to 0 */
+    overflow: hidden;
+  }
+
+  #game-canvas {
+    /* width: 100%;
+    height: 100%; */
+    width: 100vw;
+    height: 100vh;
+    display: block;
+  }
+
+  /* Content styles */
+  .content {
+    /* opacity: 0.1; */
+    background: transparent;
+    position: relative;
+    z-index: 1; /* Place above the shader */
+    /* Optional: Add some transparency to see the shader better */
+    /* background-color: rgba(242, 242, 245, 0.7); */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    pointer-events: none; /* This makes the content ignore mouse events */
+  }
+
+  /* But allow pointer events on links and interactive elements */
+  .content a,
+  .content button,
+  .content input,
+  .content textarea,
+  .content select {
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  // Import the initialization function
+  import init from "../scripts/shaders.js";
+
+  // Run the initialization only in the browser
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      // Initialize WebGPU shader
+      const wasmModule = await init("/personal-site-2025/shaders_bg.wasm");
+      window.wasm = wasmModule; // Store for access in event handlers
+      console.log("WASM initialized successfully!");
+    } catch (err) {
+      console.error("Failed to load WASM:", err);
+    }
+  });
+</script>
