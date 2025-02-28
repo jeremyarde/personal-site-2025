@@ -3,7 +3,11 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <div class="">
+  <div class="shader-container">
+    <canvas id="game-canvas"></canvas>
+  </div>
+
+  <div class="content">
     <div class="list">
       <p class="headingMd">
         I'm a software developer. I enjoy working in rust, python and js.
@@ -28,40 +32,39 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
-  /* Shader container styles */
   .shader-container {
-    border: 1px solid #000;
+    position: fixed;
     max-width: 44rem;
-    max-height: 720px;
-    position: absolute;
-    top: 0;
-    /* left: 50%; */
-    width: 100%;
-    height: 100%;
-    z-index: 0; /* Change from -1 to 0 */
+    /* max-height: 720px; */
+    border: 1px solid #000;
+    /* top: 35%; */
+    /* top: 300px; */
+    padding-top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
+    /* width: 100%;
+    height: 100%; */
+    z-index: 0;
     overflow: hidden;
+    pointer-events: auto !important; /* Force pointer events */
   }
 
   #game-canvas {
-    /* width: 100%;
-    height: 100%; */
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: block;
+    pointer-events: auto !important; /* Force pointer events */
   }
 
   /* Content styles */
   .content {
-    /* opacity: 0.1; */
     background: transparent;
     position: relative;
-    z-index: 1; /* Place above the shader */
-    /* Optional: Add some transparency to see the shader better */
-    /* background-color: rgba(242, 242, 245, 0.7); */
+    z-index: 1;
     border-radius: 8px;
     padding: 20px;
     margin: 20px;
-    pointer-events: none; /* This makes the content ignore mouse events */
+    pointer-events: none;
   }
 
   /* But allow pointer events on links and interactive elements */
@@ -70,7 +73,7 @@ import Layout from "../layouts/Layout.astro";
   .content input,
   .content textarea,
   .content select {
-    pointer-events: auto;
+    pointer-events: auto !important; /* Force pointer events */
   }
 </style>
 
@@ -78,13 +81,32 @@ import Layout from "../layouts/Layout.astro";
   // Import the initialization function
   import init from "../scripts/shaders.js";
 
+  // Function to track mouse position for the shader
+  function setupMouseTracking() {
+    document.addEventListener("mousemove", (event) => {
+      try {
+        // @ts-ignore
+        if (window.wasm && typeof window.wasm.setMousePosition === "function") {
+          // @ts-ignore
+          window.wasm.setMousePosition(event.clientX, event.clientY);
+        }
+      } catch (err) {
+        // Silently ignore errors
+      }
+    });
+  }
+
   // Run the initialization only in the browser
   document.addEventListener("DOMContentLoaded", async () => {
     try {
       // Initialize WebGPU shader
       const wasmModule = await init("/personal-site-2025/shaders_bg.wasm");
+      // @ts-ignore
       window.wasm = wasmModule; // Store for access in event handlers
       console.log("WASM initialized successfully!");
+
+      // Set up mouse tracking
+      setupMouseTracking();
     } catch (err) {
       console.error("Failed to load WASM:", err);
     }

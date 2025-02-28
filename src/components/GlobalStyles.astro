@@ -25,21 +25,17 @@
     /* opacity: 0.1; */
     background: transparent;
     position: relative;
-    z-index: 1; /* Place above the shader */
+    z-index: 10; /* Higher z-index to stay above everything */
     /* Optional: Add some transparency to see the shader better */
     /* background-color: rgba(242, 242, 245, 0.7); */
     border-radius: 8px;
     padding: 20px;
     margin: 20px;
-    pointer-events: none; /* This makes the content ignore mouse events */
+    pointer-events: auto !important; /* Force pointer events */
   }
 
-  a,
-  button,
-  input,
-  textarea,
-  select {
-    pointer-events: auto;
+  .header * {
+    pointer-events: auto !important; /* Force pointer events for all header children */
   }
 
   .nav {
@@ -47,6 +43,7 @@
   }
 
   body {
+    overflow: hidden;
   }
 
   * {
@@ -64,13 +61,22 @@
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
     line-height: 1.6;
     font-size: 18px;
-    background-color: rgb(242, 242, 245);
+    /* background-color: rgb(242, 242, 245); */
+    background-color: transparent;
     color: black;
     box-sizing: border-box;
   }
 
   .blog-entry-list {
     padding-top: 5rem;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    pointer-events: auto !important;
   }
 
   a {
