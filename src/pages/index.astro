@@ -78,6 +78,14 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <script>
+  // Add the home-page class to the body on the home page
+  document.body.classList.add("home-page");
+
+  // Remove the class when navigating away
+  document.addEventListener("astro:before-preparation", () => {
+    document.body.classList.remove("home-page");
+  });
+
   // Import the initialization function
   import init from "../scripts/shaders.js";
 

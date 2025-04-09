@@ -44,6 +44,12 @@
   }
 
   body {
+    /* Allow scrolling on all pages except home */
+    min-height: 100vh;
+  }
+
+  /* Add a specific class for the home page to prevent scrolling */
+  body.home-page {
     overflow: hidden;
   }
 
