@@ -14,6 +14,15 @@ export type Project = {
 
 const projectDetails: Project[] = [
   {
+    project_title: "Gashapon Machine Sim",
+    site_url: "https://jerecan.itch.io/gashapon-simulator",
+    github_url: "",
+    date: "",
+    description: "",
+    imagePath: "/src/assets/gasha.png",
+    technical_details: "Built with rust and bevy.",
+  },
+  {
     project_title: "Blackball",
     site_url: "https://jeremyarde.github.io/blackballgame/",
     github_url: "https://github.com/jeremyarde/blackballgame",
@@ -48,7 +57,6 @@ const projectDetails: Project[] = [
 
 <Layout>
   <div class="flex flex-col items-center max-w-6xl">
-    <h1 class="pt-16 pb-6 text-2xl title">projects</h1>
     <ul class="flex flex-col gap-8 w-full">
       {
         projectDetails.map((project: Project) => (
