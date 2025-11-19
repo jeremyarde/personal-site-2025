@@ -55,14 +55,36 @@ const projectDetails: Project[] = [
 ];
 ---
 
-<Layout>
-  <div class="flex flex-col items-center max-w-6xl">
-    <ul class="flex flex-col gap-8 w-full">
-      {
-        projectDetails.map((project: Project) => (
-          <ProjectComponent imagePath={project.imagePath} project={project} />
-        ))
-      }
-    </ul>
+<Layout title="Projects">
+  <div class="page-header">
+    <h1>Projects</h1>
+    <p class="intro-text">
+      A selection of my open source work and experiments.
+    </p>
   </div>
+
+  <ul class="projects-list">
+    {
+      projectDetails.map((project: Project) => (
+        <ProjectComponent imagePath={project.imagePath} project={project} />
+      ))
+    }
+  </ul>
 </Layout>
+
+<style>
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .intro-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+
+  .projects-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>

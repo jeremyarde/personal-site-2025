@@ -2,7 +2,6 @@
 import BaseHead from "../components/BaseHead.astro";
 import GlobalStyles from "../components/GlobalStyles.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -12,9 +11,20 @@ interface Props {
 const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
 const navItems = [
-  // "blog",
-  "projects",
+  { name: "projects", path: "projects" },
+  // { name: "writing", path: "blog" },
+  // { name: "resume", path: "resume.pdf" },
 ];
+
+const currentPath = Astro.url.pathname;
+
+// Helper to handle base path
+const getPath = (path: string) => {
+  const base = import.meta.env.BASE_URL;
+  // Remove leading slash from path if base ends with slash to avoid double slashes
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  return `${base}${cleanPath}`;
+};
 ---
 
 <!doctype html>
@@ -24,25 +34,51 @@ const navItems = [
     <GlobalStyles />
   </head>
   <body>
-    <main>
-      <div class="container">
-        <header class="header">
-          <h2 class="headingXl">
-            <a href="/" class="colorInherit">{SITE_TITLE}</a>
-          </h2>
-          <nav>
-            <!-- <a class="nav" href="/blog">blog</a> -->
-            {
-              navItems.map((page) => (
-                <a class="nav" href={`${Astro.url.pathname}${page}`}>
-                  {page}
+    <div class="container">
+      <header class="site-header">
+        <a href={getPath("")} class="site-title">{SITE_TITLE}</a>
+        <nav class="nav-links">
+          {
+            navItems.map((item) => {
+              const fullPath = getPath(item.path);
+              return (
+                <a
+                  href={fullPath}
+                  class:list={[
+                    "nav-link",
+                    {
+                      active:
+                        currentPath === fullPath ||
+                        (item.path !== "" && currentPath.startsWith(fullPath)),
+                    },
+                  ]}
+                >
+                  {item.name}
                 </a>
-              ))
-            }
-          </nav>
-        </header>
+              );
+            })
+          }
+        </nav>
+      </header>
+      <main class="content">
         <slot />
-      </div>
-    </main>
+      </main>
+
+      <footer
+        style="margin-top: 4rem; border-top: 1px solid #eee; padding-top: 2rem; font-size: 0.9rem; color: #666;"
+      >
+        <div style="display: flex; gap: 1rem;">
+          <a
+            href="https://github.com/jeremyarde"
+            target="_blank"
+            class="nav-link">GitHub</a
+          >
+          <a href="https://x.com/jeremyarde" target="_blank" class="nav-link"
+            >Twitter</a
+          >
+          <a href="mailto:jere.arde@gmail.com" class="nav-link">Email</a>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

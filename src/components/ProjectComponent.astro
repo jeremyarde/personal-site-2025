@@ -13,51 +13,148 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/*.{jpeg,jpg,png,gif}"
 );
 
-// console.log("image paths: ", images);
 if (imagePath && !images[imagePath])
   throw new Error(
     `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
   );
 ---
 
-<li class="flex flex-row gap-8 items-start">
-  <div class="flex flex-col flex-1">
-    <h2 class="text-xl font-bold text-left">
-      {project.project_title}
-    </h2>
-    <p class="text-left text-wrap mt-2">{project.description}</p>
-    <h3 class="text-left font-semibold pt-4">Technology</h3>
-    <p class="text-left text-wrap pt-2 text-sm text-gray-600">
-      {project.technical_details}
-    </p>
-    <div class="flex flex-row gap-4 pt-4">
+<li class="project-item">
+  <div class="project-content">
+    <div class="project-header">
+      <h2 class="project-title">
+        {project.project_title}
+      </h2>
       {
-        project.site_url && (
-          <a class=" hover:text-blue-800 underline" href={project.site_url}>
-            website
-          </a>
-        )
-      }
-      {
-        project.github_url && (
-          <a class="hover:text-blue-800 underline" href={project.github_url}>
-            github
-          </a>
+        (project.site_url || project.github_url) && (
+          <div class="project-links">
+            {project.site_url && <a href={project.site_url}>Website</a>}
+            {project.site_url && project.github_url && <span>/</span>}
+            {project.github_url && <a href={project.github_url}>Source</a>}
+          </div>
         )
       }
     </div>
+
+    <p class="project-description">{project.description}</p>
+
+    <div class="project-tech">
+      <span class="tech-label">Tech:</span>
+      {project.technical_details}
+    </div>
   </div>
-  <div class="flex-shrink-0">
+
+  <div class="project-image-container">
     {
       project.imagePath ? (
         <Image
-          class="w-[400px] rounded-lg shadow-md"
+          class="project-image"
           src={images[project.imagePath]()}
           alt={project.project_title}
         />
       ) : (
-        <div class="w-[400px] h-[400px] bg-gray-200 rounded-lg" />
+        <div class="project-image-placeholder">No image</div>
       )
     }
   </div>
 </li>
+
+<style>
+  .project-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .project-item:last-child {
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    .project-item {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .project-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-main);
+  }
+
+  .project-links {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .project-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .project-links a:hover {
+    text-decoration: underline;
+    color: var(--text-main);
+  }
+
+  .project-description {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+  .project-tech {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .tech-label {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    margin-right: 0.5rem;
+  }
+
+  .project-image-container {
+    width: 100%;
+    max-width: 300px;
+    flex-shrink: 0;
+  }
+
+  .project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+
+  .project-image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 0.9rem;
+  }
+</style>

@@ -3,124 +3,76 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <div class="shader-container">
-    <canvas id="game-canvas"></canvas>
-  </div>
+  <section class="intro">
+    <!-- <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Jeremy Arde</h1> -->
+    <p class="text-muted" style="font-size: 1.2rem; margin-bottom: 2rem;">
+      Software Engineer & Game Developer
+    </p>
 
-  <div class="content">
-    <div class="list">
-      <p class="headingMd">
-        I'm a software developer. I enjoy working in rust, python and js.
-      </p>
-      <p class="headingMd pt-4">
-        I like to build full-stack applications using rust, including games,
-        websites, desktop apps, languages and more.
-      </p>
-      <p class="headingMd pt-4">
-        I'm open to new projects, feel free to reach out to me on <a
-          href="https://x.com/jeremyarde">twitter</a
-        >,
-        <a href="mailto:jere.arde@gmail.com">email</a> or <a
-          href="https://www.linkedin.com/in/j-arde/">linkedin</a
-        >.
-      </p>
-      <p class="headingMd pt-4">
-        Browse my <a href="https://github.com/jeremyarde">github</a>.
-      </p>
-    </div>
-  </div>
+    <p>
+      I hope to build quality software for everyone, from games and simulations
+      to developer tools and web applications. My work spans the full stack,
+      with a focus on application development using Rust, Python, and
+      TypeScript.
+    </p>
+
+    <p>I care deeply about building quality software for everyone.</p>
+  </section>
+
+  <section id="projects" style="margin-top: 3rem;">
+    <h2>Notable Work</h2>
+    <ul class="notable-work">
+      <li>
+        <strong
+          ><a href="https://jerecan.itch.io/gashapon-simulator"
+            >Gashapon Machine Sim</a
+          ></strong
+        >
+        <span class="text-muted"> -> built with Rust and Bevy</span>
+      </li>
+      <li>
+        <strong
+          ><a href="https://jeremyarde.github.io/blackballgame/">Blackball</a
+          ></strong
+        >
+        <span class="text-muted">
+          -> a card game built with Dioxus and Axum</span
+        >
+      </li>
+      <li>
+        <strong
+          ><a href="https://github.com/jeremyarde/egui-video-stream"
+            >Screen Recorder</a
+          ></strong
+        >
+        <span class="text-muted">
+          -> screen recording app using egui, gstreamer, and ffmpeg</span
+        >
+      </li>
+      <li>
+        <strong
+          ><a href="https://uptime.jeremyarde.com/">Uptime Monitor</a></strong
+        >
+        <span class="text-muted">
+          -> website monitoring tool built with Rust</span
+        >
+      </li>
+    </ul>
+  </section>
+
+  <section id="contact" style="margin-top: 3rem;">
+    <h2>Contact</h2>
+    <p>
+      Feel free to reach out to me on
+      <a href="https://x.com/jeremyarde">Twitter</a>,
+      <a href="mailto:jere.arde@gmail.com">Email</a>, or
+      <a href="https://www.linkedin.com/in/j-arde/">LinkedIn</a>.
+    </p>
+  </section>
 </Layout>
 
 <style>
-  .shader-container {
-    position: fixed;
-    max-width: 44rem;
-    /* max-height: 720px; */
-    border: 1px solid #000;
-    /* top: 35%; */
-    /* top: 300px; */
-    padding-top: 100px;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the container */
-    /* width: 100%;
-    height: 100%; */
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: auto !important; /* Force pointer events */
-  }
-
-  #game-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    pointer-events: auto !important; /* Force pointer events */
-  }
-
-  /* Content styles */
-  .content {
-    background: transparent;
-    position: relative;
-    z-index: 1;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px;
-    pointer-events: none;
-  }
-
-  /* But allow pointer events on links and interactive elements */
-  .content a,
-  .content button,
-  .content input,
-  .content textarea,
-  .content select {
-    pointer-events: auto !important; /* Force pointer events */
+  .intro {
+    margin-bottom: 2rem;
   }
 </style>
-
-<script>
-  // Add the home-page class to the body on the home page
-  document.body.classList.add("home-page");
-
-  // Remove the class when navigating away
-  document.addEventListener("astro:before-preparation", () => {
-    document.body.classList.remove("home-page");
-  });
-
-  // Import the initialization function
-  import init from "../scripts/shaders.js";
-
-  // Function to track mouse position for the shader
-  function setupMouseTracking() {
-    document.addEventListener("mousemove", (event) => {
-      try {
-        // @ts-ignore
-        if (window.wasm && typeof window.wasm.setMousePosition === "function") {
-          // @ts-ignore
-          window.wasm.setMousePosition(event.clientX, event.clientY);
-        }
-      } catch (err) {
-        // Silently ignore errors
-      }
-    });
-  }
-
-  // Run the initialization only in the browser
-  document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      // Initialize WebGPU shader
-      let path = "/personal-site-2025/shaders_bg.wasm";
-      if (!import.meta.env.DEV) {
-        path = "/shaders_bg.wasm";
-      }
-      const wasmModule = await init(path);
-      // @ts-ignore
-      window.wasm = wasmModule; // Store for access in event handlers
-      console.log("WASM initialized successfully!");
-
-      // Set up mouse tracking
-      setupMouseTracking();
-    } catch (err) {
-      console.error("Failed to load WASM:", err);
-    }
-  });
-</script>
