@@ -1,7 +1,8 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import type { Project } from "../pages/projects/index.astro";
+import { getPath } from "../consts";
+import type { Project } from "../data/siteContent";
 
 interface Props {
   imagePath?: string;
@@ -13,148 +14,249 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/*.{jpeg,jpg,png,gif}"
 );
 
-if (imagePath && !images[imagePath])
+// Public paths (e.g. /screenshots/...) live in public/ and are not in the assets glob
+const isPublicPath = imagePath?.startsWith("/");
+if (imagePath && !isPublicPath && !images[imagePath])
   throw new Error(
     `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
   );
 ---
 
-<li class="project-item">
+<article class="project-item card">
+  <div class="project-visual">
+    {
+      project.imagePath ? (
+        isPublicPath ? (
+          <img
+            class="project-image"
+            src={getPath(project.imagePath)}
+            alt={project.project_title}
+            width={600}
+            height={400}
+          />
+        ) : (
+          <Image
+            class="project-image"
+            src={images[project.imagePath!]()}
+            alt={project.project_title}
+            width={600}
+            height={400}
+          />
+        )
+      ) : (
+        <div class="project-image-placeholder">
+          <div class="placeholder-icon">[ ]</div>
+          <span>No Preview</span>
+        </div>
+      )
+    }
+
+    {project.site_url && (
+      <div class="project-overlay">
+        <a
+          href={project.site_url}
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Project
+        </a>
+      </div>
+    )}
+  </div>
+
   <div class="project-content">
     <div class="project-header">
       <h2 class="project-title">
-        {project.project_title}
+        {project.site_url ? (
+          <a href={project.site_url} target="_blank" rel="noopener noreferrer">
+            {project.project_title}
+          </a>
+        ) : (
+          project.project_title
+        )}
       </h2>
-      {
-        (project.site_url || project.github_url) && (
-          <div class="project-links">
-            {project.site_url && <a href={project.site_url}>Website</a>}
-            {project.site_url && project.github_url && <span>/</span>}
-            {project.github_url && <a href={project.github_url}>Source</a>}
-          </div>
-        )
-      }
+      <div class="project-badges">
+        {project.site_url && <span class="tag">Live</span>}
+        {project.github_url && <span class="tag">Source</span>}
+        {project.date && <span class="tag">{project.date}</span>}
+      </div>
     </div>
 
-    <p class="project-description">{project.description}</p>
+    <p class="project-description">
+      {project.description ||
+        `A project showcasing modern development practices and technical expertise.`}
+    </p>
 
-    <div class="project-tech">
-      <span class="tech-label">Tech:</span>
-      {project.technical_details}
+    <div class="project-tech-details">
+      <h4>Technical Details</h4>
+      <p class="tech-description">{project.technical_details}</p>
+    </div>
+
+    <div class="project-actions">
+      {project.site_url && (
+        <a
+          href={project.site_url}
+          class="btn btn-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Live
+        </a>
+      )}
+      {project.github_url && (
+        <a
+          href={project.github_url}
+          class="btn btn-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Source
+        </a>
+      )}
     </div>
   </div>
-
-  <div class="project-image-container">
-    {
-      project.imagePath ? (
-        <Image
-          class="project-image"
-          src={images[project.imagePath]()}
-          alt={project.project_title}
-        />
-      ) : (
-        <div class="project-image-placeholder">No image</div>
-      )
-    }
-  </div>
-</li>
+</article>
 
 <style>
   .project-item {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
   }
 
-  .project-item:last-child {
-    border-bottom: none;
+  .project-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
   }
 
-  @media (min-width: 768px) {
-    .project-item {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-  }
-
-  .project-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .project-header {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--text-main);
-  }
-
-  .project-links {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .project-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-
-  .project-links a:hover {
-    text-decoration: underline;
-    color: var(--text-main);
-  }
-
-  .project-description {
-    margin-bottom: 1rem;
-    color: var(--text-main);
-    line-height: 1.6;
-  }
-
-  .project-tech {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .tech-label {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    margin-right: 0.5rem;
-  }
-
-  .project-image-container {
+  .project-visual {
+    position: relative;
     width: 100%;
-    max-width: 300px;
-    flex-shrink: 0;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--bg-tertiary);
   }
 
   .project-image {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-    border: 1px solid #eee;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .project-item:hover .project-image {
+    transform: scale(1.03);
+  }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0) 0%, rgba(13, 11, 9, 0.7) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .project-item:hover .project-overlay {
+    opacity: 1;
   }
 
   .project-image-placeholder {
     width: 100%;
-    aspect-ratio: 16/9;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #aaa;
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    border: 1px dashed var(--border-medium);
+  }
+
+  .placeholder-icon {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  .project-content {
+    padding: 2rem;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .project-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .project-title a {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .project-title a:hover {
+    color: var(--accent-primary);
+  }
+
+  .project-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .project-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tech-details h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-subtle);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .tech-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .project-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .project-overlay {
+      opacity: 1;
+      background: linear-gradient(to bottom, rgba(13, 11, 9, 0.25) 0%, rgba(13, 11, 9, 0.75) 100%);
+    }
+
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

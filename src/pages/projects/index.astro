@@ -1,100 +1,53 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ProjectComponent from "../../components/ProjectComponent.astro";
-
-export type Project = {
-  project_title: string;
-  site_url: string;
-  github_url: string;
-  date: string;
-  description: string;
-  imagePath: string | undefined;
-  technical_details: string;
-};
-
-const projectDetails: Project[] = [
-  {
-    project_title: "Hashdown",
-    site_url: "https://gethashdown.com",
-    github_url: "",
-    date: "",
-    description: "Markdown-based form builder SaaS.",
-    imagePath: undefined,
-    technical_details:
-      "Full-stack application: Rust (Axum, SQLX, PostgreSQL) backend and TypeScript (React, Vite, Tailwind) frontend. Uses a custom parsing expression grammar (PEG) compiled to WASM for client-side parsing.",
-  },
-  {
-    project_title: "Gashapon Machine Sim",
-    site_url: "https://jerecan.itch.io/gashapon-simulator",
-    github_url: "",
-    date: "",
-    description: "",
-    imagePath: "/src/assets/gasha.png",
-    technical_details: "Built with rust and bevy.",
-  },
-  {
-    project_title: "Blackball",
-    site_url: "https://jeremyarde.github.io/blackballgame/",
-    github_url: "https://github.com/jeremyarde/blackballgame",
-    date: "2024-03 - 2024-12",
-    description:
-      "A card game similar to hearts. Players are dealt cards and bid on how many hands they can win.",
-    imagePath: "/src/assets/bbgame.png",
-    technical_details:
-      "Website built with Dioxus (Rust UI framework). Server built with in Rust (axum, tokio). Website connects to the server via websocket, server handles game logic, syncing between players and validates moves.",
-  },
-  {
-    project_title: "Screen Recorder",
-    site_url: "",
-    github_url: "https://github.com/jeremyarde/egui-video-stream",
-    date: "",
-    description:
-      "A screen recording app, for recording yourself and the desktop at the same time.",
-    imagePath: "/src/assets/screenrecord.gif",
-    technical_details: "Built with rust using egui, gstreamer and ffmpeg.",
-  },
-  {
-    project_title: "Uptime Monitor",
-    site_url: "https://uptime.jeremyarde.com/",
-    github_url: "",
-    date: "",
-    description: "A simple uptime monitor for websites.",
-    imagePath: "/src/assets/uptime.png",
-    technical_details: "Build in rust using axum, tokio, sqlx and sqlite.",
-  },
-];
+import { projectDetails, siteCopy } from "../../data/siteContent";
 ---
 
 <Layout title="Projects">
   <div class="page-header">
-    <h1>Projects</h1>
-    <p class="intro-text">
-      A selection of my open source work and experiments.
-    </p>
+    <p class="eyebrow">{siteCopy.projects.eyebrow}</p>
+    <h1>{siteCopy.projects.title}</h1>
+    <p class="intro-text">{siteCopy.projects.intro}</p>
   </div>
 
-  <ul class="projects-list">
-    {
-      projectDetails.map((project: Project) => (
-        <ProjectComponent imagePath={project.imagePath} project={project} />
-      ))
-    }
-  </ul>
+  <div class="projects-grid">
+    {projectDetails.map((project) => (
+      <ProjectComponent imagePath={project.imagePath} project={project} />
+    ))}
+  </div>
 </Layout>
 
 <style>
   .page-header {
     margin-bottom: 3rem;
+    max-width: var(--max-width-narrow);
   }
 
   .intro-text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
+    margin-top: 0.5rem;
   }
 
-  .projects-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-subtle);
+    margin: 0 0 1rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 900px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

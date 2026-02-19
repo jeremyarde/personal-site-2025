@@ -1,7 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import GlobalStyles from "../components/GlobalStyles.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { SITE_TITLE, SITE_DESCRIPTION, getPath } from "../consts";
 
 interface Props {
   title?: string;
@@ -11,20 +11,12 @@ interface Props {
 const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
 const navItems = [
-  { name: "projects", path: "projects" },
-  // { name: "writing", path: "blog" },
-  // { name: "resume", path: "resume.pdf" },
+  { name: "projects", path: "/projects", shortcut: "p" },
+  // { name: "writing", path: "blog", shortcut: "b" },
+  // { name: "resume", path: "resume.pdf", shortcut: "r" },
 ];
 
 const currentPath = Astro.url.pathname;
-
-// Helper to handle base path
-const getPath = (path: string) => {
-  const base = import.meta.env.BASE_URL;
-  // Remove leading slash from path if base ends with slash to avoid double slashes
-  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
-  return `${base}${cleanPath}`;
-};
 ---
 
 <!doctype html>
@@ -36,7 +28,10 @@ const getPath = (path: string) => {
   <body>
     <div class="container">
       <header class="site-header">
-        <a href={getPath("")} class="site-title">{SITE_TITLE}</a>
+        <a href={getPath("")} class="site-title">
+          {SITE_TITLE}
+        </a>
+
         <nav class="nav-links">
           {
             navItems.map((item) => {
@@ -64,19 +59,19 @@ const getPath = (path: string) => {
         <slot />
       </main>
 
-      <footer
-        style="margin-top: 4rem; border-top: 1px solid #eee; padding-top: 2rem; font-size: 0.9rem; color: #666;"
-      >
-        <div style="display: flex; gap: 1rem;">
+      <footer class="site-footer">
+        <div class="footer-links">
           <a
             href="https://github.com/jeremyarde"
             target="_blank"
-            class="nav-link">GitHub</a
+            class="nav-link">github</a
           >
-          <a href="https://x.com/jeremyarde" target="_blank" class="nav-link"
-            >Twitter</a
+          <a href="mailto:jere.arde@gmail.com" class="nav-link">email</a>
+          <a
+            href="https://www.linkedin.com/in/j-arde/"
+            target="_blank"
+            class="nav-link">linkedin</a
           >
-          <a href="mailto:jere.arde@gmail.com" class="nav-link">Email</a>
         </div>
       </footer>
     </div>

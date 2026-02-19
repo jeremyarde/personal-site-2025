@@ -1,82 +1,321 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getPath } from "../consts";
+import { featuredProjects, siteCopy } from "../data/siteContent";
 ---
 
 <Layout>
-  <section class="intro">
-    <!-- <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Jeremy Arde</h1> -->
-    <p class="text-muted" style="font-size: 1.2rem; margin-bottom: 2rem;">
-      Software Engineer & Game Developer
-    </p>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-intro">
+        <p class="eyebrow">{siteCopy.home.eyebrow}</p>
+        <h1 class="hero-title">{siteCopy.home.headline}</h1>
+        <p class="hero-statement">{siteCopy.home.heroStatement}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={getPath("projects")}>View Work</a>
+          <a class="btn btn-secondary" href="mailto:jere.arde@gmail.com"
+            >Contact</a
+          >
+        </div>
+        <div class="hero-meta">
+          <div class="meta-block">
+            <span class="meta-label">{siteCopy.home.focusLabel}</span>
+            <span class="meta-value">{siteCopy.home.focusValue}</span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">{siteCopy.home.availabilityLabel}</span>
+            <span class="meta-value">{siteCopy.home.availabilityValue}</span>
+          </div>
+        </div>
+      </div>
 
-    <p>
-      I hope to build quality software for everyone, from games and simulations
-      to developer tools and web applications. My work spans the full stack,
-      with a focus on application development using Rust, Python, and
-      TypeScript.
-    </p>
-
-    <p>I care deeply about building quality software for everyone.</p>
+      <div class="hero-panel card">
+        <div class="panel-header">
+          <span class="tag">{siteCopy.home.panelTag}</span>
+          <span class="panel-title">{siteCopy.home.panelTitle}</span>
+        </div>
+        <ul class="panel-list">
+          {siteCopy.home.panelItems.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="panel-footer">
+          <span class="meta-label">{siteCopy.home.panelFooterLabel}</span>
+          <span class="meta-value">{siteCopy.home.panelFooterValue}</span>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="projects" style="margin-top: 3rem;">
-    <h2>Notable Work</h2>
-    <ul class="notable-work">
-      <li>
-        <strong><a href="https://gethashdown.com">Hashdown</a></strong>
-        <span class="text-muted"> -> Markdown-based form builder SaaS</span>
-      </li>
-      <li>
-        <strong
-          ><a href="https://jerecan.itch.io/gashapon-simulator"
-            >Gashapon Machine Sim</a
-          ></strong
-        >
-        <span class="text-muted"> -> built with Rust and Bevy</span>
-      </li>
-      <li>
-        <strong
-          ><a href="https://jeremyarde.github.io/blackballgame/">Blackball</a
-          ></strong
-        >
-        <span class="text-muted">
-          -> a card game built with Dioxus and Axum</span
-        >
-      </li>
-      <li>
-        <strong
-          ><a href="https://github.com/jeremyarde/egui-video-stream"
-            >Screen Recorder</a
-          ></strong
-        >
-        <span class="text-muted">
-          -> screen recording app using egui, gstreamer, and ffmpeg</span
-        >
-      </li>
-      <li>
-        <strong
-          ><a href="https://uptime.jeremyarde.com/">Uptime Monitor</a></strong
-        >
-        <span class="text-muted">
-          -> website monitoring tool built with Rust</span
-        >
-      </li>
-    </ul>
-  </section>
+  <section class="projects">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{siteCopy.home.sectionEyebrow}</p>
+        <h2>{siteCopy.home.sectionTitle}</h2>
+      </div>
+      <p class="section-lede">{siteCopy.home.sectionLede}</p>
+    </div>
 
-  <section id="contact" style="margin-top: 3rem;">
-    <h2>Contact</h2>
-    <p>
-      Feel free to reach out to me on
-      <a href="https://x.com/jeremyarde">Twitter</a>,
-      <a href="mailto:jere.arde@gmail.com">Email</a>, or
-      <a href="https://www.linkedin.com/in/j-arde/">LinkedIn</a>.
-    </p>
+    <div class="project-cards">
+      {
+        featuredProjects.map((project) => (
+          <article class="project-card card">
+            <div class="project-top">
+              <span class="tag">{project.tag}</span>
+              <a href={project.url} target="_blank" rel="noopener noreferrer">
+                {project.name}
+              </a>
+            </div>
+            <p>{project.description}</p>
+            <div class="project-footer">
+              <span class="meta-value">{project.tech}</span>
+              <a
+                class="btn btn-secondary"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="projects-footer">
+      <a href={getPath("/projects")} class="btn btn-primary">
+        {siteCopy.home.projectsCta}
+      </a>
+    </div>
   </section>
 </Layout>
 
 <style>
-  .intro {
-    margin-bottom: 2rem;
+  .hero {
+    padding: 4rem 0 5rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-subtle);
+    margin: 0 0 1.2rem;
+  }
+
+  .hero-intro h1 {
+    font-size: clamp(2.6rem, 3.4vw, 4.2rem);
+    margin: 0 0 1.8rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 3.8vw, 4.6rem);
+    margin: 0 0 1.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-statement {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0 0 2rem;
+  }
+
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: grid;
+    gap: 1.2rem;
+    border-left: 2px solid var(--border-light);
+    padding-left: 1.4rem;
+  }
+
+  .meta-block {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-subtle);
+  }
+
+  .meta-value {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  .hero-panel {
+    padding: 2.4rem;
+    display: grid;
+    gap: 1.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-panel::after {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border-radius: calc(var(--border-radius-lg) - 10px);
+    border: 1px dashed rgba(20, 18, 15, 0.2);
+    pointer-events: none;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+  }
+
+  .panel-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    color: var(--text-muted);
+  }
+
+  .panel-list li {
+    padding-left: 1.4rem;
+    position: relative;
+  }
+
+  .panel-list li::before {
+    content: "✶";
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+  }
+
+  .panel-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .projects {
+    padding: 4.5rem 0 5.5rem;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .section-lede {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .project-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    padding: 2rem;
+    display: grid;
+    gap: 1.5rem;
+    min-height: 100%;
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .project-top a {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--text-main);
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .projects-footer {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-header {
+      grid-template-columns: 1fr;
+    }
+
+    .project-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      padding: 3rem 0 4rem;
+    }
+
+
+    .hero-actions {
+      width: 100%;
+    }
+
+    .hero-meta {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.5rem;
+    }
+
+    .project-cards {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
