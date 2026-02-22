@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ProjectComponent from "../../components/ProjectComponent.astro";
-import { projectDetails, siteCopy } from "../../data/siteContent";
+import { clientProjects, projectDetails, siteCopy } from "../../data/siteContent";
 ---
 
 <Layout title="Projects">
@@ -16,6 +16,19 @@ import { projectDetails, siteCopy } from "../../data/siteContent";
       <ProjectComponent imagePath={project.imagePath} project={project} />
     ))}
   </div>
+
+  <section class="client-work card">
+    <div class="client-header">
+      <p class="eyebrow">{siteCopy.projects.clientTitle}</p>
+      <h2>{siteCopy.projects.clientTitle}</h2>
+      <p class="intro-text">{siteCopy.projects.clientIntro}</p>
+    </div>
+    <ul class="client-list">
+      {clientProjects.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </section>
 </Layout>
 
 <style>
@@ -43,6 +56,23 @@ import { projectDetails, siteCopy } from "../../data/siteContent";
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
+  }
+
+  .client-work {
+    padding: 2.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .client-header h2 {
+    margin: 0.5rem 0 0.5rem;
+  }
+
+  .client-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.7;
   }
 
   @media (max-width: 900px) {

@@ -1,7 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getPath } from "../consts";
-import { featuredProjects, siteCopy } from "../data/siteContent";
+import { projectDetails, siteCopy } from "../data/siteContent";
+const featuredProjects = projectDetails.filter((project) => project.featured);
 ---
 
 <Layout>
@@ -60,16 +61,20 @@ import { featuredProjects, siteCopy } from "../data/siteContent";
           <article class="project-card card">
             <div class="project-top">
               <span class="tag">{project.tag}</span>
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
-                {project.name}
+              <a
+                href={project.site_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project.project_title}
               </a>
             </div>
             <p>{project.description}</p>
             <div class="project-footer">
-              <span class="meta-value">{project.tech}</span>
+              <span class="meta-value">{project.keywords.join(" • ")}</span>
               <a
                 class="btn btn-secondary"
-                href={project.url}
+                href={project.site_url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
