@@ -16,13 +16,13 @@ cf-init project="personal-site-2025":
 # Builds and uploads a preview deployment. Override the project or branch when needed:
 # just cf-preview my-pages-project feature-name
 cf-preview project="personal-site-2025" branch="preview":
-    just cf-build
+    just build
     npx wrangler pages deploy ./dist --project-name {{project}} --branch {{branch}}
 
 # Builds and uploads the production deployment from main:
 # just cf-deploy
 cf-deploy project="personal-site-2025":
-    just cf-build
+    just build
     npx wrangler pages deploy ./dist --project-name {{project}} --branch main
 
 
