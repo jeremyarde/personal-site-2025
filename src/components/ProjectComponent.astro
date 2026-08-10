@@ -14,9 +14,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/*.{jpeg,jpg,png,gif}"
 );
 
-// Public paths (e.g. /screenshots/...) live in public/ and are not in the assets glob
-const isPublicPath = imagePath?.startsWith("/");
-if (imagePath && !isPublicPath && !images[imagePath])
+// Asset paths use /src/assets/ so Astro can fingerprint and emit them. Other
+// leading-slash paths (e.g. /screenshots/...) live in public/.
+const isAssetPath = imagePath?.startsWith("/src/assets/");
+const isPublicPath = Boolean(imagePath && !isAssetPath);
+if (isAssetPath && !images[imagePath])
   throw new Error(
     `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
   );
