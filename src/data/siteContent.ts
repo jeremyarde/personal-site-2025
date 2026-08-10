@@ -24,9 +24,10 @@ export const siteCopy = {
     availabilityValue: "For select projects",
     panelTag: "Now",
     panelTitle: "What I'm working on",
-    panelItems: ["HoverPane - Desktop window manager with Automation APIs"],
-    panelFooterLabel: "Based in",
-    panelFooterValue: "Vancouver, Canada",
+    panelItems: [
+      "Orbits - iOS and macOS app for visual timers",
+      "HoverPane - Desktop window manager with Automation APIs",
+    ],
     sectionTitle: "Sample Projects",
     projectsCta: "Explore All Projects",
   },

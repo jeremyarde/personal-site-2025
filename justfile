@@ -1,11 +1,7 @@
 build:
     npm run build
 
-cf-build:
-    npm run build
-    if rg -q "personal-site-2025/" ./dist; then echo "Build contains the retired GitHub Pages subpath."; exit 1; fi
-
-run:
+dev:
     npm run dev
 
 # Cloudflare Pages (one-time setup)
