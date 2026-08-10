@@ -1,0 +1,321 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getPath } from "../../consts";
+import appIcon from "../../assets/orbits/icon.png";
+import overview from "../../assets/orbits/overview.png";
+import focus from "../../assets/orbits/focus.png";
+import mobileFocus from "../../assets/orbits/mobile-focus.png";
+---
+
+<Layout
+  title="Orbits — A visual timer for your day | Jeremy Arde"
+  description="Orbits is a visual timer for keeping track of the things you want to do. Available for desktop, with iOS on the way."
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="brand-lockup">
+        <img src={appIcon.src} alt="Orbits app icon" class="app-icon" />
+        <span class="tag">Visual timer</span>
+      </div>
+      <h1>A visual timer for your day.</h1>
+      <p class="lede">
+        Orbits lets you set timers for the things you want to get done, then
+        lays them out as a small solar system.
+      </p>
+      <div class="actions">
+        <a
+          class="btn btn-primary"
+          href="https://jerecan.itch.io/orbits"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Download for desktop <span aria-hidden="true">↗</span></a
+        >
+        <span
+          class="btn btn-secondary unavailable"
+          aria-label="iOS app coming soon"
+        >
+          iPhone &amp; iPad · coming soon
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-visual card">
+      <img
+        src={overview.src}
+        alt="Orbits showing timers orbiting a glowing sun"
+      />
+    </div>
+  </section>
+
+  <section class="features" aria-labelledby="features-heading">
+    <div class="section-heading">
+      <p class="eyebrow">How it works</p>
+      <h2 id="features-heading">A different way to look at your day.</h2>
+    </div>
+    <div class="feature-grid">
+      <article class="feature card">
+        <h3>See everything at once</h3>
+        <p>
+          Each timer becomes a planet. A quick look shows you what is running,
+          what is coming up, and what you have finished.
+        </p>
+      </article>
+      <article class="feature card">
+        <h3>Focus on one thing</h3>
+        <p>
+          Use it for a deep-work session, a routine, or a small task you keep
+          putting off. Start the timer, then get back to it.
+        </p>
+      </article>
+      <article class="feature card">
+        <h3>Private by default</h3>
+        <p>
+          Timers, goals, history, and preferences live locally on your device.
+          No accounts, tracking, or analytics.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="spotlight card">
+    <div class="spotlight-copy">
+      <p class="eyebrow">Made for ordinary days</p>
+      <h2>Less fiddling with timers. More doing the thing.</h2>
+      <p>
+        Pick something to work on, start a timer, and carry on. Orbits keeps the
+        time in view without demanding your attention.
+      </p>
+      <a href={getPath("orbits/privacy-policy")}>Read the privacy policy</a>
+    </div>
+    <img src={focus.src} alt="A focused timer view in Orbits" />
+  </section>
+
+  <section class="mobile-showcase" aria-labelledby="mobile-heading">
+    <div class="mobile-shot">
+      <img src={mobileFocus.src} alt="Orbits running on an iPhone" />
+    </div>
+    <div class="mobile-copy">
+      <p class="eyebrow">For iPhone &amp; iPad</p>
+      <h2 id="mobile-heading">Take your timers with you.</h2>
+      <p>The iOS version is coming soon.</p>
+      <span class="tag">Coming soon</span>
+    </div>
+  </section>
+
+  <section class="download card" aria-labelledby="download-heading">
+    <div>
+      <p class="eyebrow">Give it a try</p>
+      <h2 id="download-heading">
+        Make a little more room for the things you want to do.
+      </h2>
+    </div>
+    <a
+      class="btn btn-primary"
+      href="https://jerecan.itch.io/orbits"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Get Orbits for desktop <span aria-hidden="true">↗</span></a
+    >
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: 3.5rem;
+    align-items: center;
+    padding: 4rem 0 5rem;
+  }
+
+  .brand-lockup,
+  .actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .app-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 18%;
+    box-shadow: var(--shadow-md);
+  }
+
+  h1 {
+    font-size: clamp(3.2rem, 7vw, 5.6rem);
+    margin: 1.6rem 0;
+    letter-spacing: -0.05em;
+  }
+
+  .lede {
+    max-width: 33rem;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1.75;
+  }
+
+  .actions {
+    margin-top: 2rem;
+  }
+  .unavailable {
+    opacity: 0.62;
+    cursor: default;
+  }
+  .availability {
+    color: var(--text-subtle);
+    font-size: 0.88rem;
+    margin-top: 1rem;
+  }
+
+  .hero-visual {
+    overflow: hidden;
+    padding: 0.6rem;
+    background: #080b16;
+  }
+  .hero-visual img,
+  .spotlight img {
+    display: block;
+    width: 100%;
+  }
+  .hero-visual img {
+    border-radius: calc(var(--border-radius-lg) - 6px);
+  }
+
+  .features {
+    padding: 1rem 0 5rem;
+  }
+  .section-heading {
+    max-width: 44rem;
+    margin-bottom: 2.2rem;
+  }
+  .eyebrow {
+    color: var(--text-subtle);
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    margin: 0 0 0.9rem;
+    text-transform: uppercase;
+  }
+  .section-heading h2,
+  .spotlight h2,
+  .download h2 {
+    margin: 0;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.3rem;
+  }
+  .feature {
+    padding: 2rem;
+  }
+  .number {
+    color: var(--accent-primary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .feature h3 {
+    margin: 1.3rem 0 0.7rem;
+  }
+  .feature p,
+  .spotlight p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .spotlight {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1.2fr);
+    gap: 2.5rem;
+    align-items: center;
+    padding: 2.5rem;
+  }
+  .spotlight-copy {
+    display: grid;
+    gap: 1.2rem;
+  }
+  .spotlight-copy h2 {
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+  }
+  .spotlight img {
+    border-radius: var(--border-radius);
+  }
+
+  .mobile-showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(15rem, 0.7fr);
+    gap: 4rem;
+    align-items: center;
+    max-width: 52rem;
+    margin: 5rem auto;
+  }
+  .mobile-shot {
+    justify-self: end;
+    width: min(100%, 18rem);
+    padding: 0.5rem;
+    border-radius: 2.4rem;
+    background: #090c17;
+    box-shadow: var(--shadow-lg);
+  }
+  .mobile-shot img {
+    display: block;
+    width: 100%;
+    border-radius: 2rem;
+  }
+  .mobile-copy h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+  .mobile-copy > p:not(.eyebrow) {
+    color: var(--text-muted);
+    margin-bottom: 1.4rem;
+  }
+
+  .download {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 5rem;
+    padding: 2.5rem;
+  }
+  .download h2 {
+    max-width: 43rem;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+  }
+
+  @media (max-width: 850px) {
+    .hero,
+    .spotlight,
+    .mobile-showcase {
+      grid-template-columns: 1fr;
+    }
+    .hero {
+      gap: 2.5rem;
+      padding-top: 3rem;
+    }
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .mobile-showcase {
+      gap: 2rem;
+      max-width: 30rem;
+    }
+    .mobile-shot {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .download {
+      display: grid;
+      padding: 1.8rem;
+    }
+    .spotlight,
+    .feature {
+      padding: 1.5rem;
+    }
+  }
+</style>
