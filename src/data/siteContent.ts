@@ -33,7 +33,7 @@ export const siteCopy = {
   home: {
     introduction: "I design and build software.",
     summary:
-      "I build desktop, iOS apps, CLI and internal tools. Previously worked on distributed systems and AI at AWS and Laivly.",
+      "I build desktop and iOS apps, CLI and internal tools. Previously, I worked on distributed systems at AWS and machine-learning systems at Laivly.",
     selectedWorkTitle: "Selected work",
     allProjectsLabel: "All projects and experiments →",
   },
