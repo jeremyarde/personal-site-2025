@@ -7,20 +7,128 @@ import overview from "../../assets/orbits/overview.png";
 import focus from "../../assets/orbits/focus.png";
 import mobileFocus from "../../assets/orbits/mobile-focus.png";
 const copy = siteCopy.orbits;
-const card = "rounded-[22px] border border-[#181513]/12 bg-[#f6f2ec]/70 shadow-[0_6px_18px_rgba(24,21,19,0.08)]";
-const primaryButton = "inline-flex items-center rounded-full border border-[#14110f] bg-[#14110f] px-6 py-3 text-sm font-semibold text-[#fdf7ef] shadow-[0_10px_25px_rgba(13,11,9,0.25)] transition hover:-translate-y-px hover:bg-[#1a1511]";
-const secondaryButton = "inline-flex items-center rounded-full border border-[#181513]/20 px-6 py-3 text-sm font-semibold text-[#181513]";
-const tag = "inline-flex rounded-full border border-[#181513]/12 bg-[#f8f4ed]/70 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#6a625c]";
+const card =
+  "rounded-[22px] border border-[#181513]/12 bg-[#f6f2ec]/70 shadow-[0_6px_18px_rgba(24,21,19,0.08)]";
+const primaryButton =
+  "inline-flex items-center rounded-full border border-[#14110f] bg-[#14110f] px-6 py-3 text-sm font-semibold text-[#fdf7ef] shadow-[0_10px_25px_rgba(13,11,9,0.25)] transition hover:-translate-y-px hover:bg-[#1a1511]";
+const secondaryButton =
+  "inline-flex items-center rounded-full border border-[#181513]/20 px-6 py-3 text-sm font-semibold text-[#181513]";
+const tag =
+  "inline-flex rounded-full border border-[#181513]/12 bg-[#f8f4ed]/70 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#6a625c]";
 const downloadUrl = "https://jerecan.itch.io/orbits";
 ---
 
 <Layout title={copy.title} description={copy.description}>
-  <section class="grid items-center gap-14 py-16 lg:grid-cols-[.88fr_1.12fr] lg:py-20">
-    <div><div class="flex flex-wrap items-center gap-4"><img src={appIcon.src} alt={copy.alt.icon} class="h-16 w-16 rounded-[18%] shadow-[0_16px_40px_rgba(24,21,19,0.16)]"/><span class={tag}>{copy.tag}</span></div><h1 class="my-7 font-serif text-5xl leading-none tracking-tight sm:text-6xl xl:text-7xl">{copy.headline}</h1><p class="max-w-xl text-lg leading-relaxed text-[#6a625c]">{copy.introduction}</p><div class="mt-8 flex flex-wrap gap-4"><a class={primaryButton} href={downloadUrl} target="_blank" rel="noopener noreferrer">{copy.downloadLabel} <span aria-hidden="true">↗</span></a><span class={`${secondaryButton} cursor-default opacity-60`} aria-label={copy.unavailableLabel}>{copy.unavailableLabel}</span></div></div>
-    <div class={`${card} overflow-hidden bg-[#080b16] p-2`}><img src={overview.src} alt={copy.alt.overview} class="block w-full rounded-2xl"/></div>
+  <section
+    class="grid items-center gap-14 py-16 lg:grid-cols-[.88fr_1.12fr] lg:py-20"
+  >
+    <div>
+      <div class="flex flex-wrap items-center gap-4">
+        <img
+          src={appIcon.src}
+          alt={copy.alt.icon}
+          class="h-16 w-16 rounded-[18%] shadow-[0_16px_40px_rgba(24,21,19,0.16)]"
+        />
+      </div><h1
+        class="my-7 font-serif text-5xl leading-none tracking-tight sm:text-6xl xl:text-7xl"
+      >
+        {copy.headline}
+      </h1><p class="max-w-xl text-lg leading-relaxed text-[#6a625c]">
+        {copy.introduction}
+      </p><div class="mt-8 flex flex-wrap gap-4">
+        <a
+          class={primaryButton}
+          href={downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          >{copy.downloadLabel} <span aria-hidden="true">↗</span></a
+        ><span
+          class={`${secondaryButton} cursor-default opacity-60`}
+          aria-label={copy.unavailableLabel}>{copy.unavailableLabel}</span
+        >
+      </div>
+    </div>
+    <div class={`${card} overflow-hidden bg-[#080b16] p-2`}>
+      <img
+        src={overview.src}
+        alt={copy.alt.overview}
+        class="block w-full rounded-2xl"
+      />
+    </div>
   </section>
-  <section class="py-4 pb-20"><div class="mb-9 max-w-2xl"><p class="mb-3 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.howItWorksLabel}</p><h2 class="m-0 font-serif text-4xl leading-tight">{copy.howItWorksTitle}</h2></div><div class="grid gap-5 md:grid-cols-3">{copy.features.map((feature) => <article class={`${card} p-8`}><h3 class="m-0 font-serif text-2xl">{feature.title}</h3><p class="mt-4 leading-relaxed text-[#6a625c]">{feature.body}</p></article>)}</div></section>
-  <section class={`${card} grid items-center gap-10 p-8 md:grid-cols-[.8fr_1.2fr] sm:p-10`}><div><p class="mb-4 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.spotlightLabel}</p><h2 class="m-0 font-serif text-4xl leading-tight">{copy.spotlightTitle}</h2><p class="mt-5 leading-relaxed text-[#6a625c]">{copy.spotlightBody}</p><div class="mt-5 flex flex-wrap gap-5"><a href={getPath("orbits/privacy-policy")}>{copy.privacyLabel}</a><a href={getPath("orbits/support")}>{copy.supportLabel}</a></div></div><img src={focus.src} alt={copy.alt.focus} class="block w-full rounded-xl"/></section>
-  <section class="mx-auto my-20 grid max-w-3xl items-center gap-10 md:grid-cols-[.9fr_.7fr]"><div class="justify-self-center rounded-[2.4rem] bg-[#090c17] p-2 shadow-[0_30px_80px_rgba(24,21,19,0.22)] md:justify-self-end"><img src={mobileFocus.src} alt={copy.alt.mobile} class="block w-72 rounded-[2rem]"/></div><div><p class="mb-4 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.mobileLabel}</p><h2 class="m-0 font-serif text-4xl leading-tight">{copy.mobileTitle}</h2><p class="mb-5 mt-4 text-[#6a625c]">{copy.mobileBody}</p><span class={tag}>{copy.comingSoon}</span></div></section>
-  <section class={`${card} mb-4 flex flex-wrap items-center justify-between gap-8 p-8 sm:p-10`}><div><p class="mb-4 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.downloadSectionLabel}</p><h2 class="m-0 max-w-3xl font-serif text-3xl leading-tight">{copy.downloadSectionTitle}</h2></div><a class={primaryButton} href={downloadUrl} target="_blank" rel="noopener noreferrer">{copy.downloadCta} <span aria-hidden="true">↗</span></a></section>
+  <section class="py-4 pb-20">
+    <div class="mb-9 max-w-2xl">
+      <h2 class="m-0 font-serif text-4xl leading-tight">
+        {copy.howItWorksTitle}
+      </h2>
+    </div><div class="grid gap-5 md:grid-cols-3">
+      {
+        copy.features.map((feature) => (
+          <article class={`${card} p-8`}>
+            <>
+              <h3 class="m-0 font-serif text-2xl">{feature.title}</h3>
+              <p class="mt-4 leading-relaxed text-[#6a625c]">{feature.body}</p>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <section
+    class={`${card} grid items-center gap-10 p-8 md:grid-cols-[.8fr_1.2fr] sm:p-10`}
+  >
+    <div>
+      <h2 class="m-0 font-serif text-4xl leading-tight">
+        {copy.spotlightTitle}
+      </h2><p class="mt-5 leading-relaxed text-[#6a625c]">
+        {copy.spotlightBody}
+      </p><div class="mt-5 flex flex-wrap gap-5">
+        <a href={getPath("orbits/privacy-policy")}>{copy.privacyLabel}</a><a
+          href={getPath("orbits/support")}>{copy.supportLabel}</a
+        >
+      </div>
+    </div><img
+      src={focus.src}
+      alt={copy.alt.focus}
+      class="block w-full rounded-xl"
+    />
+  </section>
+  <section
+    class="mx-auto my-20 grid max-w-3xl items-center gap-10 md:grid-cols-[.9fr_.7fr]"
+  >
+    <div
+      class="justify-self-center rounded-[2.4rem] bg-[#090c17] p-2 shadow-[0_30px_80px_rgba(24,21,19,0.22)] md:justify-self-end"
+    >
+      <img
+        src={mobileFocus.src}
+        alt={copy.alt.mobile}
+        class="block w-72 rounded-[2rem]"
+      />
+    </div><div>
+      <p class="mb-4 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">
+        {copy.mobileLabel}
+      </p><h2 class="m-0 font-serif text-4xl leading-tight">
+        {copy.mobileTitle}
+      </h2><p class="mb-5 mt-4 text-[#6a625c]">{copy.mobileBody}</p><span
+        class={tag}>{copy.comingSoon}</span
+      >
+    </div>
+  </section>
+  <section
+    class={`${card} mb-4 flex flex-wrap items-center justify-between gap-8 p-8 sm:p-10`}
+  >
+    <div>
+      <p class="mb-4 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">
+        {copy.downloadSectionLabel}
+      </p><h2 class="m-0 max-w-3xl font-serif text-3xl leading-tight">
+        {copy.downloadSectionTitle}
+      </h2>
+    </div><a
+      class={primaryButton}
+      href={downloadUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      >{copy.downloadCta} <span aria-hidden="true">↗</span></a
+    >
+  </section>
 </Layout>

@@ -65,7 +65,6 @@ export const siteCopy = {
       "Orbits lets you set timers for the things you want to get done, then lays them out as a small solar system.",
     downloadLabel: "Download for desktop",
     unavailableLabel: "iPhone & iPad · coming soon",
-    howItWorksLabel: "How it works",
     howItWorksTitle: "A different way to look at your day.",
     features: [
       {
@@ -73,15 +72,14 @@ export const siteCopy = {
         body: "Each timer becomes a planet. A quick look shows you what is running, what is coming up, and what you have finished.",
       },
       {
-        title: "Focus on one thing",
-        body: "Use it for a deep-work session, a routine, or a small task you keep putting off. Start the timer, then get back to it.",
+        title: "Focus on one, but keep track of many",
+        body: "You can zoom in on one planet and keep others running so you don't forget.",
       },
       {
-        title: "Private by default",
+        title: "Respecting privacy",
         body: "Timers, goals, history, and preferences live locally on your device. No accounts, tracking, or analytics.",
       },
     ],
-    spotlightLabel: "Made for ordinary days",
     spotlightTitle: "Less fiddling with timers. More doing the thing.",
     spotlightBody:
       "Pick something to work on, start a timer, and carry on. Orbits keeps the time in view without demanding your attention.",
