@@ -1,7 +1,8 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import GlobalStyles from "../components/GlobalStyles.astro";
+import "../styles/global.css";
 import { SITE_TITLE, SITE_DESCRIPTION, getPath } from "../consts";
+import { siteCopy } from "../data/siteContent";
 
 interface Props {
   title?: string;
@@ -10,13 +11,6 @@ interface Props {
 
 const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
-const navItems = [
-  { name: "orbits", path: "/orbits", shortcut: "o" },
-  { name: "projects", path: "/projects", shortcut: "p" },
-  // { name: "writing", path: "blog", shortcut: "b" },
-  // { name: "resume", path: "resume.pdf", shortcut: "r" },
-];
-
 const currentPath = Astro.url.pathname;
 ---
 
@@ -24,28 +18,28 @@ const currentPath = Astro.url.pathname;
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <GlobalStyles />
   </head>
-  <body>
-    <div class="container">
-      <header class="site-header">
-        <a href={getPath("")} class="site-title">
-          {SITE_TITLE}
-        </a>
-
-        <nav class="nav-links">
+  <body class="min-h-screen bg-white font-['Inter'] text-[#171717] antialiased selection:bg-[#171717] selection:text-white">
+    <div class="min-h-screen px-5 py-6 sm:px-8 sm:py-8">
+      <header class="mx-auto flex w-full max-w-4xl items-center justify-between gap-6 border-b border-black/10 pb-5">
+        <a href={getPath("")} class="text-sm font-semibold tracking-tight">{SITE_TITLE}</a>
+        <nav aria-label="Primary" class="flex flex-wrap justify-end gap-x-5 gap-y-2 text-sm text-black/60">
           {
-            navItems.map((item) => {
-              const fullPath = getPath(item.path);
+            siteCopy.layout.navigation.map((item) => {
+              const isExternal = item.path.startsWith("mailto:");
+              const fullPath = isExternal ? item.path : getPath(item.path);
               return (
                 <a
                   href={fullPath}
                   class:list={[
-                    "nav-link",
+                    "transition-colors hover:text-black",
                     {
-                      active:
+                      "text-black":
                         currentPath === fullPath ||
                         (item.path !== "" && currentPath.startsWith(fullPath)),
+                      "text-black/60":
+                        currentPath !== fullPath &&
+                        (item.path === "" || !currentPath.startsWith(fullPath)),
                     },
                   ]}
                 >
@@ -56,23 +50,16 @@ const currentPath = Astro.url.pathname;
           }
         </nav>
       </header>
-      <main class="content">
+      <main class="mx-auto w-full max-w-4xl [&_a:not([class])]:font-medium [&_a:not([class])]:underline [&_a:not([class])]:underline-offset-4">
         <slot />
       </main>
 
-      <footer class="site-footer">
-        <div class="footer-links">
-          <a
-            href="https://github.com/jeremyarde"
-            target="_blank"
-            class="nav-link">github</a
-          >
-          <a href="mailto:jere.arde@gmail.com" class="nav-link">email</a>
-          <a
-            href="https://www.linkedin.com/in/j-arde/"
-            target="_blank"
-            class="nav-link">linkedin</a
-          >
+      <footer class="mx-auto mt-20 flex w-full max-w-4xl flex-wrap justify-between gap-6 border-t border-black/10 py-6 text-sm">
+        <span class="text-black/50">© {new Date().getFullYear()} {SITE_TITLE}</span>
+        <div class="flex flex-wrap gap-5">
+          {Object.values(siteCopy.layout.footer).map((link) => (
+            <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} class="transition-opacity hover:opacity-50">{link.label}</a>
+          ))}
         </div>
       </footer>
     </div>

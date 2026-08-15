@@ -2,7 +2,8 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = "Jeremy Arde";
-export const SITE_DESCRIPTION = "Welcome to my website!";
+export const SITE_DESCRIPTION =
+  "Jeremy Arde designs and builds software, desktop apps, and developer tools.";
 
 /** Base-path-aware absolute path (always leading /). */
 export function getPath(path: string): string {

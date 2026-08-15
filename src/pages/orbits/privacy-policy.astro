@@ -1,83 +1,16 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { siteCopy } from "../../data/siteContent";
+const copy = siteCopy.privacy;
 ---
 
-<Layout
-  title="Orbits Privacy Policy | Jeremy Arde"
-  description="Privacy policy for Orbits, a visual timer app."
->
-  <article class="privacy-policy">
-    <p class="eyebrow">Orbits</p>
-    <h1>Privacy Policy</h1>
-    <p class="updated"><strong>Last updated:</strong> August 10, 2026</p>
-
-    <p>
-      Orbits is a visual timer app. Orbits is designed to work without
-      collecting personal information.
-    </p>
-
-    <h2>Data we collect</h2>
-    <p>
-      Orbits does not collect, transmit, sell, or share personal data. We do not
-      use analytics, advertising, tracking, accounts, or third-party data
-      collection services.
-    </p>
-
-    <h2>Data stored on your device</h2>
-    <p>
-      Orbits stores your timers, goals, completion history, and app settings
-      locally on your device so the app can work and preserve your preferences.
-      This information is not sent to us or to any third party.
-    </p>
-
-    <h2>Children's privacy</h2>
-    <p>
-      Orbits does not knowingly collect personal information from anyone,
-      including children.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      If this policy changes, we will update this page and its "Last updated"
-      date.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-      If you have questions about this policy, contact Jeremy at
-      <a href="mailto:jeremy@jeremyarde.com">jeremy@jeremyarde.com</a>.
-    </p>
+<Layout title={copy.title} description={copy.description}>
+  <article class="max-w-3xl py-12 text-base leading-relaxed [&_h2]:mt-10 [&_h2]:font-serif [&_h2]:text-3xl [&_h2]:leading-tight [&_p]:mb-6 [&_p]:max-w-2xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.productLabel}</p>
+    <h1 class="m-0 font-serif text-5xl leading-none tracking-tight">{copy.heading}</h1>
+    <p class="mb-10 mt-6 text-[#6a625c]"><strong>Last updated:</strong> {copy.updated}</p>
+    {copy.sections.map((section) => <>{section.title ? <h2>{section.title}</h2> : null}<p>{section.body}</p></>)}
+    <h2>{copy.contact.title}</h2>
+    <p>{copy.contact.before} <a href={`mailto:${copy.contact.email}`}>{copy.contact.email}</a>.</p>
   </article>
 </Layout>
-
-<style>
-  .privacy-policy {
-    max-width: var(--max-width-narrow);
-    padding: 3rem 0 4rem;
-  }
-
-  .eyebrow {
-    margin: 0 0 0.8rem;
-    color: var(--text-subtle);
-    font-size: 0.78rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin-top: 0;
-  }
-
-  .updated {
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-  }
-
-  h2 {
-    margin-top: 2.5rem;
-  }
-
-  p {
-    max-width: 42rem;
-  }
-</style>

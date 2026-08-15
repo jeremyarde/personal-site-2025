@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { designLab } from "../data/designLab";
+---
+
+<Layout title="Design Lab | Jeremy Arde" description="A visual playground for testing themes, motion, and interface treatments.">
+  <section id="design-lab" class="py-12 lg:py-20">
+    <div class="mb-10 max-w-3xl">
+      <p class="text-sm text-black/50">Design lab</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">Compose a direction before building it.</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-black/65">Mix a theme, visual treatments, motion, and interface shape. The preview updates immediately; copy a recipe when you find a combination worth carrying into the site.</p>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-[17rem_minmax(0,1fr)]">
+      <aside class="space-y-8">
+        <fieldset>
+          <legend class="mb-3 text-sm font-medium">Theme</legend>
+          <div class="grid grid-cols-2 gap-2">
+            {designLab.themes.map((theme, index) => <button type="button" data-theme={theme.id} aria-pressed={index === 0 ? "true" : "false"} class="lab-control rounded-lg border border-black/15 px-3 py-2 text-left text-sm transition hover:border-black/50 aria-pressed:border-black aria-pressed:bg-black aria-pressed:text-white">{theme.label}</button>)}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="mb-3 text-sm font-medium">Effects</legend>
+          <div class="flex flex-wrap gap-2">
+            {designLab.effects.map((effect) => <button type="button" data-effect={effect.id} aria-pressed="false" class="lab-control rounded-full border border-black/15 px-3 py-1.5 text-sm transition hover:border-black/50 aria-pressed:border-black aria-pressed:bg-black aria-pressed:text-white">{effect.label}</button>)}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="mb-3 text-sm font-medium">Motion</legend>
+          <div class="grid gap-2">
+            {designLab.motion.map((motion, index) => <button type="button" data-motion={motion.id} aria-pressed={index === 0 ? "true" : "false"} class="lab-control rounded-lg border border-black/15 px-3 py-2 text-left text-sm transition hover:border-black/50 aria-pressed:border-black aria-pressed:bg-black aria-pressed:text-white">{motion.label}</button>)}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="mb-3 text-sm font-medium">Interaction</legend>
+          <div class="flex flex-wrap gap-2">
+            {designLab.interactions.map((interaction) => <button type="button" data-interaction={interaction.id} aria-pressed="false" class="lab-control rounded-full border border-black/15 px-3 py-1.5 text-sm transition hover:border-black/50 aria-pressed:border-black aria-pressed:bg-black aria-pressed:text-white">{interaction.label}</button>)}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="mb-3 text-sm font-medium">Surface</legend>
+          <div class="grid gap-2">
+            {designLab.surfaces.map((surface, index) => <button type="button" data-surface={surface.id} aria-pressed={index === 0 ? "true" : "false"} class="lab-control rounded-lg border border-black/15 px-3 py-2 text-left text-sm transition hover:border-black/50 aria-pressed:border-black aria-pressed:bg-black aria-pressed:text-white">{surface.label}</button>)}
+          </div>
+        </fieldset>
+        <button type="button" id="copy-recipe" class="w-full rounded-lg bg-black px-4 py-3 text-sm font-medium text-white transition hover:opacity-80">Copy recipe</button>
+        <p id="copy-status" class="min-h-5 text-sm text-black/50" aria-live="polite"></p>
+      </aside>
+
+      <div id="lab-preview" class="relative min-h-[34rem] overflow-hidden border border-[var(--lab-border)] bg-[var(--lab-background)] p-6 text-[var(--lab-foreground)] transition-colors duration-500 sm:p-10" style="--lab-background:#fbfbfa;--lab-foreground:#111111;--lab-muted:#737373;--lab-accent:#111111;--lab-surface:#ffffff;--lab-border:#d4d4d4;--pointer-x:50%;--pointer-y:50%">
+        <div data-orbit class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[var(--lab-accent)] opacity-15"></div>
+        <div data-orbit class="pointer-events-none absolute -bottom-16 -left-12 h-48 w-48 rounded-full border border-[var(--lab-accent)] opacity-20"></div>
+        <div class="relative z-10 mx-auto max-w-2xl">
+          <div class="flex items-center justify-between border-b border-[var(--lab-border)] pb-5 text-sm"><span>Preview page</span><span class="text-[var(--lab-muted)]">v0.1</span></div>
+          <div class="py-16 sm:py-20"><p class="text-sm text-[var(--lab-muted)]">Independent software</p><h2 class="mt-4 max-w-xl text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">A small tool with a clear point of view.</h2><p class="mt-6 max-w-xl text-lg leading-relaxed text-[var(--lab-muted)]">Use this canvas to judge the mood, hierarchy, and movement before the real interface takes shape.</p><div class="mt-8 flex flex-wrap gap-3"><button type="button" data-magnet class="rounded-[var(--lab-radius)] bg-[var(--lab-accent)] px-5 py-3 text-sm font-medium text-[var(--lab-background)]">Primary action</button><button type="button" data-magnet class="rounded-[var(--lab-radius)] border border-[var(--lab-border)] bg-[var(--lab-surface)] px-5 py-3 text-sm font-medium">Secondary</button><button type="button" id="trigger-scatter" class="rounded-[var(--lab-radius)] border border-[var(--lab-border)] px-5 py-3 text-sm font-medium">Trigger</button></div></div>
+          <div id="preview-card" class="grid gap-5 border border-[var(--lab-border)] bg-[var(--lab-surface)] p-6 transition-transform duration-200"><div class="flex items-center justify-between"><span class="text-sm text-[var(--lab-muted)]">System status</span><span id="motion-mark" class="grid h-10 w-10 place-items-center rounded-full bg-[var(--lab-accent)] text-lg text-[var(--lab-background)]">✦</span></div><p class="text-xl font-medium tracking-[-0.03em]">Make the interface feel deliberate.</p><div class="h-px w-full bg-[var(--lab-border)]"></div><div id="scatter-items" class="flex flex-wrap gap-2"><span data-chip class="rounded-full border border-[var(--lab-border)] px-3 py-1 text-sm">Contrast</span><span data-chip class="rounded-full border border-[var(--lab-border)] px-3 py-1 text-sm">Tempo</span><span data-chip class="rounded-full border border-[var(--lab-border)] px-3 py-1 text-sm">Texture</span></div><p id="interaction-hint" class="text-sm leading-relaxed text-[var(--lab-muted)]">Choose an interaction to make this preview respond.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ themes: designLab.themes }}>
+  const root = document.getElementById("design-lab");
+  const preview = document.getElementById("lab-preview");
+  const card = document.getElementById("preview-card");
+  const mark = document.getElementById("motion-mark");
+  const copyButton = document.getElementById("copy-recipe");
+  const copyStatus = document.getElementById("copy-status");
+  const trigger = document.getElementById("trigger-scatter");
+  const interactionHint = document.getElementById("interaction-hint");
+  const orbiters = preview.querySelectorAll("[data-orbit]");
+  const magnetItems = preview.querySelectorAll("[data-magnet]");
+  const chips = preview.querySelectorAll("[data-chip]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const state = { theme: "paper", effects: new Set(), motion: "still", interactions: new Set(), surface: "crisp" };
+
+  const scatter = () => chips.forEach((chip, index) => chip.animate([{ transform: "translate(0, 0) rotate(0deg)" }, { transform: `translate(${(index - 1) * 36}px, ${index % 2 ? -22 : 22}px) rotate(${(index - 1) * 10}deg)` }, { transform: "translate(0, 0) rotate(0deg)" }], { duration: 900, easing: "cubic-bezier(.2,.8,.2,1)" }));
+  const showInteraction = (interaction) => {
+    if (reducedMotion) return;
+    if (interaction === "scatter") scatter();
+    if (interaction === "tilt") card.animate([{ transform: "perspective(900px) rotateX(0) rotateY(0)" }, { transform: "perspective(900px) rotateX(6deg) rotateY(-9deg)" }, { transform: "perspective(900px) rotateX(0) rotateY(0)" }], { duration: 700, easing: "ease-out" });
+    if (interaction === "magnet") magnetItems.forEach((item, index) => item.animate([{ transform: "translate(0, 0)" }, { transform: `translate(${index ? -14 : 14}px, -10px)` }, { transform: "translate(0, 0)" }], { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" }));
+  };
+
+  const syncPressed = (selector, value) => root.querySelectorAll(selector).forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.theme === value || button.dataset.motion === value || button.dataset.surface === value || (button.dataset.effect && state.effects.has(button.dataset.effect)) ? "true" : "false");
+  });
+
+  const render = () => {
+    const theme = themes.find((item) => item.id === state.theme);
+    Object.entries(theme).forEach(([key, value]) => key !== "id" && key !== "label" && preview.style.setProperty(`--lab-${key}`, value));
+    const backgrounds = [];
+    if (state.effects.has("grid")) backgrounds.push("linear-gradient(color-mix(in srgb, var(--lab-foreground) 18%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--lab-foreground) 18%, transparent) 1px, transparent 1px)");
+    if (state.effects.has("glow")) backgrounds.push("radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--lab-accent) 32%, transparent), transparent 42%)");
+    if (state.effects.has("noise")) backgrounds.push("radial-gradient(color-mix(in srgb, var(--lab-foreground) 18%, transparent) 0.8px, transparent 1px)");
+    if (state.effects.has("spotlight")) backgrounds.push("radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--lab-accent) 28%, transparent), transparent 30%)");
+    preview.style.backgroundImage = backgrounds.join(", ");
+    preview.style.backgroundSize = state.effects.has("grid") ? "32px 32px, 32px 32px, auto" : state.effects.has("noise") ? "5px 5px" : "auto";
+    preview.style.backgroundBlendMode = "normal";
+    preview.style.boxShadow = state.effects.has("glow") ? "inset 0 0 90px color-mix(in srgb, var(--lab-accent) 16%, transparent)" : "none";
+    card.style.borderRadius = state.surface === "soft" ? "1.5rem" : state.surface === "outline" ? "0" : "0.35rem";
+    card.style.boxShadow = state.surface === "soft" ? "0 20px 50px color-mix(in srgb, var(--lab-foreground) 14%, transparent)" : "none";
+    card.style.background = state.surface === "outline" ? "transparent" : "var(--lab-surface)";
+    [mark, ...orbiters].forEach((element) => element.getAnimations().forEach((animation) => animation.cancel()));
+    if (!reducedMotion && state.motion !== "still") {
+      const animations = {
+        pulse: [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(1.35)", opacity: 0.35 }, { transform: "scale(1)", opacity: 1 }],
+        spin: [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+        drift: [{ transform: "translate3d(0, 0, 0)" }, { transform: "translate3d(26px, -18px, 0)" }, { transform: "translate3d(-12px, 12px, 0)" }, { transform: "translate3d(0, 0, 0)" }],
+        bounce: [{ transform: "translateY(0)" }, { transform: "translateY(-22px)" }, { transform: "translateY(0)" }],
+      };
+      mark.animate(animations[state.motion], { duration: state.motion === "spin" ? 1800 : 1500, iterations: Infinity, easing: state.motion === "bounce" ? "cubic-bezier(.35, 0, .65, 1)" : "ease-in-out" });
+      orbiters.forEach((element, index) => element.animate(animations[state.motion], { duration: 2200 + index * 600, iterations: Infinity, easing: "ease-in-out", direction: "alternate" }));
+    }
+    interactionHint.textContent = state.interactions.size ? `Active: ${[...state.interactions].join(", ")}. Move your pointer over the preview, or use Trigger.` : "Choose an interaction to make this preview respond.";
+    syncPressed("[data-theme]", state.theme); syncPressed("[data-motion]", state.motion); syncPressed("[data-surface]", state.surface); syncPressed("[data-effect]", ""); syncPressed("[data-interaction]", "");
+  };
+
+  root.querySelectorAll("[data-theme]").forEach((button) => button.addEventListener("click", () => { state.theme = button.dataset.theme; render(); }));
+  root.querySelectorAll("[data-effect]").forEach((button) => button.addEventListener("click", () => { const effect = button.dataset.effect; state.effects.has(effect) ? state.effects.delete(effect) : state.effects.add(effect); render(); }));
+  root.querySelectorAll("[data-motion]").forEach((button) => button.addEventListener("click", () => { state.motion = button.dataset.motion; render(); }));
+  root.querySelectorAll("[data-interaction]").forEach((button) => button.addEventListener("click", () => { const interaction = button.dataset.interaction; state.interactions.has(interaction) ? state.interactions.delete(interaction) : state.interactions.add(interaction); render(); if (state.interactions.has(interaction)) showInteraction(interaction); }));
+  root.querySelectorAll("[data-surface]").forEach((button) => button.addEventListener("click", () => { state.surface = button.dataset.surface; render(); }));
+  preview.addEventListener("pointermove", (event) => {
+    const bounds = preview.getBoundingClientRect(); const x = (event.clientX - bounds.left) / bounds.width; const y = (event.clientY - bounds.top) / bounds.height;
+    preview.style.setProperty("--pointer-x", `${x * 100}%`); preview.style.setProperty("--pointer-y", `${y * 100}%`);
+    if (reducedMotion) return;
+    if (state.interactions.has("tilt")) card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - 0.5) * 10}deg)`;
+    if (state.interactions.has("magnet")) magnetItems.forEach((item) => item.style.transform = `translate(${(x - 0.5) * 14}px, ${(y - 0.5) * 14}px)`);
+  });
+  preview.addEventListener("pointerleave", () => { card.style.transform = ""; magnetItems.forEach((item) => item.style.transform = ""); });
+  trigger.addEventListener("click", () => { if (state.interactions.has("scatter") && !reducedMotion) scatter(); });
+  copyButton.addEventListener("click", async () => { const recipe = `Theme: ${state.theme}\nEffects: ${[...state.effects].join(", ") || "none"}\nMotion: ${state.motion}\nInteractions: ${[...state.interactions].join(", ") || "none"}\nSurface: ${state.surface}`; await navigator.clipboard.writeText(recipe); copyStatus.textContent = "Recipe copied."; });
+  render();
+</script>

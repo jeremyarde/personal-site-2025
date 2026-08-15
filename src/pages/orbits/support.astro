@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { siteCopy } from "../../data/siteContent";
+const copy = siteCopy.support;
+---
+
+<Layout
+  title={copy.title}
+  description={copy.description}
+>
+  <section class="max-w-3xl py-16">
+    <p class="mb-3 text-xs uppercase tracking-[0.24em] text-[#9a8f86]">{copy.productLabel}</p>
+    <h1 class="m-0 font-serif text-5xl leading-none tracking-tight">{copy.heading}</h1>
+    <p class="mb-8 mt-6 max-w-xl text-lg leading-relaxed text-[#6a625c]">
+      {copy.body}
+    </p>
+    <a class="inline-flex items-center rounded-full border border-[#14110f] bg-[#14110f] px-6 py-3 text-sm font-semibold text-[#fdf7ef] shadow-[0_10px_25px_rgba(13,11,9,0.25)] transition hover:-translate-y-px hover:bg-[#1a1511]" href={copy.email}>
+      {copy.cta}
+    </a>
+  </section>
+</Layout>
