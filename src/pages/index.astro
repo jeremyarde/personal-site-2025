@@ -1,50 +1,449 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import BaseHead from "../components/BaseHead.astro";
 import { getPath } from "../consts";
-import { projectDetails, siteCopy } from "../data/siteContent";
-const featuredProjects = projectDetails.filter((project) => project.featured);
 ---
 
-<Layout>
-  <section class="max-w-3xl py-16 lg:py-20">
-    <div>
-      <h1 class="text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-        {siteCopy.home.introduction}
-      </h1>
-      <!-- <p class="mt-6 text-lg leading-relaxed text-black/70">
-        {siteCopy.home.introduction}
-      </p> -->
-      <p class="mt-4 leading-relaxed text-black/60">{siteCopy.home.summary}</p>
-      <div class="mt-12">
-        <h2 class="text-lg font-semibold">{siteCopy.home.selectedWorkTitle}</h2>
-        <ul class="mt-4 divide-y divide-black/10 border-t border-black/10">
-          {
-            featuredProjects.slice(0, 3).map((project) => (
-              <li class="py-4">
-                <>
-                  <a
-                    href={project.site_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {project.project_title}
-                  </a>
-                  <span class="block pt-1 text-sm leading-relaxed text-black/55">
-                    {project.description}
-                  </span>
-                </>
-              </li>
-            ))
-          }
-          <li class="py-4 text-sm">
-            <a href={getPath("projects")}>{siteCopy.home.allProjectsLabel}</a>
-          </li>
-        </ul>
-      </div>
+<!doctype html>
+<html lang="en">
+  <head
+    ><BaseHead
+      title="Jeremy Arde — Software designer & builder"
+      description="A second visual direction for Jeremy Arde."
+    /></head
+  ><body class="night-page"
+    ><div class="noise"></div><main>
+      <nav>
+        <a class="night-mark" href={getPath("")}>JA<span>®</span></a><div>
+          <a href="#archive">Archive</a><a href="mailto:jeremy@jeremyarde.com"
+            >Contact</a>
+        </div>
+      </nav><section class="night-hero">
+        <p class="status"><i></i> Independent software designer &amp; developer</p><div
+          class="hero-grid"
+        >
+          <h1>I design and build<br /><span>useful software.</span></h1><div
+            class="hero-side"
+          >
+            <p>
+              I make desktop apps, developer tools, and focused digital products.
+            </p><a href="#archive">Selected work <b>↓</b></a>
+          </div>
+        </div><div class="frequency" aria-hidden="true">
+          <span>001</span><div class="wave">✳</div><span>INDEPENDENT / 01</span>
+        </div>
+      </section><section class="ticker" aria-label="Areas of practice">
+        <div class="ticker-track">
+          <div class="ticker-set">
+            <span>Desktop apps</span><b>✦</b>
+            <span>Developer tools</span><b>✦</b>
+            <span>Product design</span><b>✦</b>
+          </div>
+          <div class="ticker-set" aria-hidden="true">
+            <span>Desktop apps</span><b>✦</b>
+            <span>Developer tools</span><b>✦</b>
+            <span>Product design</span><b>✦</b>
+          </div>
+          <div class="ticker-set" aria-hidden="true">
+            <span>Desktop apps</span><b>✦</b>
+            <span>Developer tools</span><b>✦</b>
+            <span>Product design</span><b>✦</b>
+          </div>
+        </div>
+      </section><section id="archive" class="archive">
+        <header>
+          <p>Selected work</p><span>2023—2026</span>
+        </header><article class="archive-item large">
+          <div class="shape shape-orbit"><i></i><b></b><em></em></div><div
+            class="item-meta"
+          >
+            <span>01 / Focus utility</span><h2>Orbits</h2><p>
+              A visual timer for focus, habits, and everyday goals.
+            </p><a href={getPath("orbits")}>Explore project ↗</a>
+          </div>
+        </article><article class="archive-item">
+          <div class="shape shape-grid"><span>H</span><i></i></div><div
+            class="item-meta"
+          >
+            <span>02 / Desktop environment</span><h2>HoverPane</h2><p>
+              Floating desktop windows for the web information you need close by.
+            </p><a href="https://hoverpane.com" target="_blank"
+              >Visit project ↗</a
+            >
+          </div>
+        </article><article class="archive-item">
+          <div class="shape shape-type">#<i>_</i></div><div class="item-meta">
+            <span>03 / Form builder</span><h2>Hashdown</h2><p>
+              A Markdown-first form builder for clear, flexible forms.
+            </p><a href="https://gethashdown.com" target="_blank"
+              >Visit project ↗</a
+            >
+          </div>
+        </article>
+      </section><section class="night-close">
+        <p>Have a product or tool you want to make?</p><a
+          href="mailto:jeremy@jeremyarde.com">Let’s talk <span>↗</span></a
+        >
+      </section><footer>
+        <span>© 2026 / Jeremy Arde</span><span
+          >Independent software practice.</span
+        >
+      </footer>
+    </main></body
+  >
+</html>
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+  :global(body) {
+    margin: 0;
+  }
+  .night-page {
+    --paper: #f4f0e8;
+    --hot: #e9ff45;
+    --blue: #76a6ff;
+    background: #111110;
+    color: var(--paper);
+    font-family: Inter, sans-serif;
+    min-height: 100vh;
+  }
+  .noise {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+  main {
+  }
+  nav {
+    height: 80px;
+    padding: 0 4.2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #393935;
+  }
+  nav a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  nav > div {
+    display: flex;
+    gap: 27px;
+  }
+  .night-mark {
+    font: 700 25px/1 "DM Serif Display" !important;
+    letter-spacing: -0.08em !important;
+  }
+  .night-mark span {
+    font: 8px Inter;
+    vertical-align: top;
+    margin-left: 3px;
+  }
+  .night-hero {
+    padding: 92px 4.2vw 0;
+    min-height: 620px;
+  }
+  .status {
+    font: 10px "JetBrains Mono";
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #aaa9a1;
+  }
+  .status i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--hot);
+    margin-right: 7px;
+  }
+  .hero-grid {
+    margin-top: 85px;
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    align-items: end;
+  }
+  .night-hero h1 {
+    margin: 0;
+    font: clamp(65px, 10vw, 148px)/0.78 "DM Serif Display";
+    letter-spacing: -0.075em;
+  }
+  .night-hero h1 span {
+    color: var(--hot);
+    font-style: italic;
+  }
+  .hero-side {
+    max-width: 270px;
+    padding-bottom: 12px;
+  }
+  .hero-side p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #bdbbb3;
+  }
+  .hero-side a {
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 24px;
+    color: var(--paper);
+    text-decoration: none;
+    border-bottom: 1px solid #65645e;
+    padding-bottom: 8px;
+    font-size: 12px;
+  }
+  .hero-side b {
+    color: var(--hot);
+    font-size: 17px;
+  }
+  .frequency {
+    border-top: 1px solid #393935;
+    margin-top: 85px;
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 9px "JetBrains Mono";
+    color: #a6a49b;
+  }
+  .wave {
+    font-size: 38px;
+    color: var(--blue);
+    line-height: 0.4;
+  }
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid #393935;
+    border-bottom: 1px solid #393935;
+    color: #111110;
+    background: var(--hot);
+    font: 600 18px/1 "JetBrains Mono";
+    letter-spacing: -0.07em;
+    padding: 15px 0;
+  }
+  .ticker div {
+    display: flex;
+  }
+  .ticker-track {
+    width: max-content;
+    will-change: transform;
+    animation: ticker-slide 14s linear infinite !important;
+  }
+  .ticker-set {
+    width: 100vw;
+    padding: 0 4.2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .ticker b {
+    color: var(--blue);
+    font-size: 15px;
+  }
+  @keyframes ticker-slide {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-33.333%, 0, 0);
+    }
+  }
+  .archive {
+    padding: 116px 4.2vw;
+  }
+  .archive > header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #393935;
+    text-transform: uppercase;
+    font: 10px "JetBrains Mono";
+    color: #aaa9a1;
+  }
+  .archive > header p {
+    margin: 0;
+  }
+  .archive-item {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 8vw;
+    border-bottom: 1px solid #393935;
+    padding: 40px 0;
+    min-height: 405px;
+    align-items: center;
+  }
+  .shape {
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+    background: #252522;
+  }
+  .shape-orbit {
+    background: #344c3b;
+  }
+  .shape-orbit i,
+  .shape-orbit b,
+  .shape-orbit em {
+    position: absolute;
+    border: 1px solid #b8c7af;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(23deg);
+  }
+  .shape-orbit i {
+    width: 76%;
+    height: 35%;
+  }
+  .shape-orbit b {
+    width: 35%;
+    height: 82%;
+  }
+  .shape-orbit em {
+    width: 85px;
+    height: 85px;
+    background: var(--hot);
+    border: 0;
+  }
+  .shape-grid {
+    display: grid;
+    place-items: center;
+    background:
+      linear-gradient(90deg, transparent 49.7%, #55554e 50%, transparent 50.3%),
+      linear-gradient(transparent 49.7%, #55554e 50%, transparent 50.3%);
+    background-size: 38px 38px;
+  }
+  .shape-grid span {
+    font: 180px "DM Serif Display";
+    color: var(--blue);
+    position: relative;
+    z-index: 1;
+  }
+  .shape-grid i {
+    position: absolute;
+    width: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid var(--hot);
+  }
+  .shape-type {
+    display: flex;
+    align-items: center;
+    padding-left: 15%;
+    font: 200px/1 "DM Serif Display";
+    letter-spacing: -0.12em;
+    color: var(--hot);
+    background: #30304b;
+  }
+  .shape-type i {
+    font-style: normal;
+    color: var(--blue);
+  }
+  .item-meta span {
+    font: 10px "JetBrains Mono";
+    text-transform: uppercase;
+    color: #aaa9a1;
+  }
+  .item-meta h2 {
+    font: clamp(42px, 5vw, 75px)/1 "DM Serif Display";
+    letter-spacing: -0.065em;
+    margin: 17px 0 13px;
+  }
+  .item-meta p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #aaa9a1;
+    max-width: 270px;
+  }
+  .item-meta a {
+    display: inline-block;
+    color: var(--hot);
+    font-size: 12px;
+    text-decoration: none;
+    border-bottom: 1px solid #747b37;
+    padding-bottom: 5px;
+    margin-top: 11px;
+  }
+  .night-close {
+    padding: 130px 4.2vw;
+    background: var(--blue);
+    color: #101010;
+  }
+  .night-close p {
+    margin: 0;
+    font: clamp(40px, 5.7vw, 85px)/0.94 "DM Serif Display";
+    letter-spacing: -0.06em;
+    max-width: 750px;
+  }
+  .night-close a {
+    display: inline-block;
+    color: inherit;
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid;
+    margin-top: 37px;
+    padding-bottom: 8px;
+  }
+  .night-close span {
+    color: #f24f32;
+    font-size: 21px;
+    margin-left: 7px;
+  }
+  footer {
+    padding: 22px 4.2vw;
+    display: flex;
+    justify-content: space-between;
+    color: #77766e;
+    font: 9px "JetBrains Mono";
+    text-transform: uppercase;
+  }
+  @media (max-width: 700px) {
+    nav {
+      padding: 0 22px;
+    }
+    .night-hero {
+      padding: 60px 22px 0;
+      min-height: 535px;
+    }
+    .hero-grid {
+      margin-top: 70px;
+      display: block;
+    }
+    .hero-side {
+      margin-top: 42px;
+    }
+    .frequency {
+      margin-top: 55px;
+    }
+    .archive {
+      padding: 72px 22px;
+    }
+    .archive-item {
+      display: block;
+      min-height: auto;
+    }
+    .shape {
+      height: 230px;
+    }
+    .item-meta {
+      padding: 28px 0 10px;
+    }
+    .night-close {
+      padding: 82px 22px;
+    }
+    footer {
+      padding: 21px 22px;
+    }
+    .shape-type {
+      font-size: 145px;
+    }
+  }
+</style>
 
-      <!-- <div class="mt-10 border-t border-black/10 pt-5">
-        <p class="text-sm text-black/50">Areas of focus</p> -->
-      <!-- <p class="mt-2 leading-relaxed">{siteCopy.home.focusValue}</p> -->
-    </div>
-  </section>
-</Layout>
