@@ -21,8 +21,7 @@ cf-preview project="personal-site-2025" branch="preview":
 
 # Builds and uploads the production deployment from main:
 # just cf-deploy
-cf-deploy project="personal-site-2025":
-    just build
+cf-deploy project="personal-site-2025": build
     npx wrangler pages deploy ./dist --project-name {{project}} --branch main
 
 
@@ -35,4 +34,10 @@ screenshots:
 
 
 inspo: 
-    npx tsx tools/screenshot.ts https://www.eushi.design/ public/screenshots/inspo.png
+    # prompt:
+    #     I want you to build me a couple examples of my personal site.
+    # Follow this procedure:
+    # 1. Generate a long, random alphanumeric string using a shell script.
+    # 2. Define the creative direction (color scheme, layout, typography, etc.) based on the string. Look beyond the surface for subpatterns, special numbers, anything that inspires you.
+    # 3. Use your judgment to bring this direction to life and make it look great.
+    # 4. Don’t reveal the string in the design. It’s only for your inspiration.
