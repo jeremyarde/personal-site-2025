@@ -57,42 +57,82 @@ export const siteCopy = {
       "A project showcasing modern development practices and technical expertise.",
   },
   orbits: {
-    title: "Orbits — A visual timer for your day",
+    appStore: {
+      badge: {
+        href: "https://apps.apple.com/us/app/orbits-visual-focus-timer/id6797258061?itscg=30200&itsct=apps_box_badge&mttnsubad=6797258061",
+        src: "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/en-us?releaseDate=1786924800",
+        alt: "Download on the App Store",
+      },
+      artwork: {
+        href: "https://apps.apple.com/us/app/orbits-visual-focus-timer/id6797258061?itscg=30200&itsct=apps_box_artwork&mttnsubad=6797258061",
+        src: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a4/60/11/a4601152-cc74-ddd5-ade6-ddb87e521a4f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/540x540bb.jpg",
+      },
+    },
+    title: "Orbits — A visual focus timer for your day",
     description:
-      "Orbits is a visual timer for keeping track of the things you want to do. Available for desktop, with iOS on the way.",
-    headline: "A visual timer for your day.",
-    introduction:
-      "Orbits lets you set timers for the things you want to get done, then lays them out as a small solar system.",
-    downloadLabel: "Download for desktop",
-    unavailableLabel: "iPhone & iPad · coming soon",
-    howItWorksTitle: "A different way to look at your day.",
+      "Orbits is a visual timer for keeping track of the things you want to do. Available for desktop, iPhone, and iPad.",
+    headline: "A visual focus timer for your day.",
+    heroBody: "Setup your timers and turn them into habits",
+    desktop: {
+      href: "https://jerecan.itch.io/orbits",
+      label: "Download for desktop",
+    },
+    featuresTitle: "A different way to look at your day.",
     features: [
       {
-        title: "See everything at once",
-        body: "Each timer becomes a planet. A quick look shows you what is running, what is coming up, and what you have finished.",
+        title: "Everything at a glance",
+        body: "Setup your timers, and watch as they rotate around the sun in your solar system.",
       },
       {
-        title: "Focus on one, but keep track of many",
-        body: "You can zoom in on one planet and keep others running so you don't forget.",
+        title: "Get reminded on your terms",
+        body: "Let Orbits create and manage your alarms so you can be reminded even when the app is closed.",
       },
       {
         title: "Respecting privacy",
-        body: "Timers, goals, history, and preferences live locally on your device. No accounts, tracking, or analytics.",
+        body: "Your timers and settings stay on your device. No accounts, tracking, or analytics.",
       },
     ],
-    spotlightTitle: "Less fiddling with timers. More doing the thing.",
-    spotlightBody:
-      "Pick something to work on, start a timer, and carry on. Orbits keeps the time in view without demanding your attention.",
-    privacyLabel: "Privacy policy",
-    supportLabel: "Support",
-    mobileLabel: "For iPhone & iPad",
-    mobileTitle: "Take your timers with you.",
-    mobileBody: "The iOS version is coming soon.",
-    comingSoon: "Coming soon",
-    downloadSectionLabel: "Give it a try",
-    downloadSectionTitle:
-      "Make a little more room for the things you want to do.",
-    downloadCta: "Get Orbits for desktop",
+    spotlight: {
+      title: "Less fiddling. More doing.",
+      body: "Pick something to work on, start a timer, and carry on. Orbits keeps time in view without demanding your attention.",
+    },
+    links: { privacy: "Privacy", support: "Support" },
+    mobile: {
+      eyebrow: "iPhone & iPad",
+      title: "Take your timers with you.",
+      body: "Orbits is also available on iPhone and iPad.",
+    },
+    maker: {
+      before: "A small side project by",
+      name: "Jeremy Arde",
+      href: "https://jeremyarde.com",
+      after: "Want a new feature or found a bug?",
+      emailLabel: "Send a note",
+    },
+    supportEmail: "jeremy@jeremyarde.com",
+    detailsTitle: "A few details",
+    details: [
+      { label: "Available on", value: "Desktop, iPhone, and iPad" },
+      { label: "Privacy", value: "No accounts, tracking, or analytics" },
+      {
+        label: "Support",
+        value: "jeremy@jeremyarde.com",
+        href: "mailto:jeremy@jeremyarde.com",
+      },
+    ],
+    faqTitle: "Questions",
+    faqs: [
+      {
+        question: "What is Orbits?",
+        answer:
+          "Orbits is a visual timer for tasks, goals, and focus sessions. It turns timers into a small solar system so you can see them at a glance.",
+      },
+      {
+        question: "Does Orbits collect my data?",
+        answer:
+          "No. Your timers and settings stay on your device; Orbits does not use accounts, analytics, advertising, or tracking.",
+      },
+    ],
     alt: {
       icon: "Orbits app icon",
       overview: "Orbits showing timers orbiting a glowing sun",
