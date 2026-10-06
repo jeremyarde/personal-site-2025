@@ -67,15 +67,7 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
-        run: |
-          set -o pipefail
-          set +e
-          npm run build 2>&1 | tee build-output.log
-          status=${PIPESTATUS[0]}
-          if [ "$status" -ne 0 ]; then
-            printf '::error title=Astro build failed::%s\n' "$(tail -n 40 build-output.log | tr '\n' ' ')"
-          fi
-          exit "$status"
+        run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
